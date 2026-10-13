@@ -4,12 +4,14 @@ import gsap from "gsap";
 import React, { useEffect, useRef } from "react";
 import { InertiaPlugin } from "gsap/InertiaPlugin";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useSiteContent } from "@/lib/site-content";
 
 gsap.registerPlugin(InertiaPlugin, ScrollTrigger);
 
 export default function MotionCards() {
     const sectionRef = useRef(null);
     const containerRef = useRef(null);
+    const { motion } = useSiteContent();
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -154,14 +156,14 @@ export default function MotionCards() {
             className="motion-card-section" id="motion-card-section">
             {/* ─── Part 1: Bold Heading Text with SVG Sticker Placeholders ─── */}
             <div className="motion-card__heading">
-                <span className="motion-card__badge">what we do best</span>
+                <span className="motion-card__badge">{motion.badge}</span>
                 <h2 className="motion-card__title">
-                    Systems your team
+                    {motion.titleA}
                     <br />
-                    <em>actually uses.</em>
+                    <em>{motion.titleB}</em>
                 </h2>
                 <p className="motion-card__subtitle">
-                    from websites to POS — M-Pesa ready, Kiswahili &amp; English.
+                    {motion.subtitle}
                     {/* SVG sticker placeholder — top-right area */}
                     <span className="motion-card__sticker motion-card__sticker--top">
                         <img
@@ -245,39 +247,29 @@ export default function MotionCards() {
 
                 {/* Floating labels — positioned freely over the cards area */}
                 <div ref={containerRef} className="motion-card__floating-labels">
-                    <div className="motion-card__floating-label motion-card__floating-label--pink">
-                        <p className="motion-card__floating-text">M-Pesa ready</p>
-                    </div>
-                    <div className="motion-card__floating-label motion-card__floating-label--orange">
-                        <p className="motion-card__floating-text">Kiswahili &amp; English</p>
-                    </div>
-                    <div className="motion-card__floating-label motion-card__floating-label--red">
-                        <p className="motion-card__floating-text">support after launch</p>
-                    </div>
+                    {motion.labels.map((label, i) => (
+                        <div
+                            key={label + i}
+                            className={`motion-card__floating-label motion-card__floating-label--${['pink', 'orange', 'red'][i % 3]}`}
+                        >
+                            <p className="motion-card__floating-text">{label}</p>
+                        </div>
+                    ))}
                 </div>
             </div>
 
             {/* ─── Part 3: Bottom Paragraph Text ─── */}
             <div className="motion-card__footer-text">
                 <p className="motion-card__description">
-                    To run a shop, a school or a clinic you need systems
-                    your team actually uses. We build websites, apps and
-                    tools for everyday work in Tanzania — simple to use,
-                    friendly on slow connections, and backed by real support.
+                    {motion.description}
                 </p>
                 <div className="motion-card__stats">
-                    <div className="motion-card__stat">
-                        <span className="motion-card__stat-num">15+</span>
-                        <span className="motion-card__stat-label">live deployments</span>
-                    </div>
-                    <div className="motion-card__stat">
-                        <span className="motion-card__stat-num">100%</span>
-                        <span className="motion-card__stat-label">offline-ready builds</span>
-                    </div>
-                    <div className="motion-card__stat">
-                        <span className="motion-card__stat-num">SW·EN</span>
-                        <span className="motion-card__stat-label">Kiswahili &amp; English</span>
-                    </div>
+                    {motion.stats.map((s, i) => (
+                        <div key={s.label + i} className="motion-card__stat">
+                            <span className="motion-card__stat-num">{s.num}</span>
+                            <span className="motion-card__stat-label">{s.label}</span>
+                        </div>
+                    ))}
                 </div>
                 <div className="motion-card__cta-row">
                     <a href="/platforms" className="motion-card__cta">Touch the software</a>

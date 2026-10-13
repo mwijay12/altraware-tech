@@ -3,10 +3,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { gsap } from 'gsap';
-import { CONTACT } from '@/lib/data';
+import { useSiteContent } from '@/lib/site-content';
 import { goWithWipe } from './wipe';
-
-gsap.defaults({ ease: 'expo.out', duration: 0.7 });
 
 const LINKS = [
     { href: '/', label: 'Home', shape: '1', note: 'Start here' },
@@ -28,6 +26,7 @@ export default function KineticMenu() {
     const containerRef = useRef(null);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const router = useRouter();
+    const { contact } = useSiteContent();
     const pathname = usePathname();
 
     // Open on global event; close on Escape + route change.
@@ -210,7 +209,7 @@ export default function KineticMenu() {
                         <div className="km-side" data-km-fade>
                             <p className="km-side-kicker">Start a project</p>
                             <a
-                                href={CONTACT.whatsapp}
+                                href={contact.whatsapp}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="km-wa"
@@ -219,12 +218,12 @@ export default function KineticMenu() {
                                 <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true">
                                     <path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 2a8 8 0 1 1-4.1 14.9l-.3-.2-2.9.8.8-2.8-.2-.3A8 8 0 0 1 12 4Zm-3.2 3.9c-.2 0-.4 0-.6.2-.2.2-.8.8-.8 1.9s.8 2.2 1 2.4c.1.2 1.7 2.7 4.2 3.6 2 .8 2.5.6 3 .6.4-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1 0-.1-.4-.2-.8-.3l-1.9-.9c-.3-.1-.5-.2-.7 0l-.9 1c-.2.2-.3.2-.6.1a7.6 7.6 0 0 1-2.2-1.4 8.3 8.3 0 0 1-1.5-1.9c-.2-.3 0-.4.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5L8.9 8c-.2-.4-.4-.4-.7-.4Z" />
                                 </svg>
-                                <span>{CONTACT.phonePrimary}</span>
+                                <span>{contact.phonePrimary}</span>
                             </a>
-                            <a href={`mailto:${CONTACT.email}`} className="km-mail" onClick={() => setIsMenuOpen(false)}>
-                                {CONTACT.email}
+                            <a href={`mailto:${contact.email}`} className="km-mail" onClick={() => setIsMenuOpen(false)}>
+                                {contact.email}
                             </a>
-                            <p className="km-hours">{CONTACT.address} · {CONTACT.hours}</p>
+                            <p className="km-hours">{contact.address} · {contact.hours}</p>
                         </div>
                     </div>
                 </nav>

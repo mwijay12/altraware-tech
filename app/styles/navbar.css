@@ -364,3 +364,11 @@
 
 .nav-menu-btn:hover .nav-menu-btn__bars i:nth-child(1) { transform: translateY(-1px); }
 .nav-menu-btn:hover .nav-menu-btn__bars i:nth-child(3) { transform: translateY(1px); }
+
+@media (max-width: 768px) {
+  /* Tighten navbar: icon-only menu + blob (no labels) */
+  .logo-work-text { display: none; }
+  .logo-work-container { width: 44px; }
+  .nav-menu-btn__text { display: none; }
+  .nav-menu-btn { padding: 0.5rem 0.65rem; }
+}

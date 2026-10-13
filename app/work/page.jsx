@@ -1,65 +1,9 @@
+'use client';
+
+import { useEffect } from 'react';
 import Link from 'next/link';
 import InnerNav from '@/components/InnerNav';
-import { CONTACT } from '@/lib/data';
-
-export const metadata = {
-    title: 'Our Work — Altraware Technologies',
-    description: 'Case studies from Altraware Technologies: Faida POS for retail shops, CareTrack for care centres, and ShuleDirect for schools. Plus live deployments. Based in Dar es Salaam, Tanzania.',
-};
-
-const CASES = [
-    {
-        id: 'faida-pos',
-        badge: 'Faida POS',
-        status: 'Live — ask us for a demo',
-        title: 'Sales, stock and receipts for a retail shop in Dar es Salaam.',
-        image: '/assets/work/faidahq.png',
-        imageAlt: 'Faida POS terminal',
-        problem:
-            'The shop recorded sales in a counter book. Stock counts were guesses, receipts were handwritten, and M-Pesa payments were hard to match to sales at the end of the day.',
-        solution:
-            'Faida POS: a point of sale that records each sale, updates stock, prints receipts, keeps M-Pesa records alongside cash, and gives the owner a daily report. Staff get their own accounts.',
-        scope: ['Sales and receipts', 'Stock in and out', 'M-Pesa and cash records', 'Staff accounts', 'Daily and weekly reports', 'Training for shop staff'],
-        price: 'From TSh 1,200,000. Final price is fixed in a written quote after a free discovery call.',
-        timeline: 'Timeline is agreed in writing before we start.',
-        next: 'Send us a WhatsApp and we will arrange a demo.',
-        demo: { label: 'Open the Faida POS demo', url: 'https://faida-hq.vercel.app/' },
-    },
-    {
-        id: 'caretrack',
-        badge: 'CareTrack',
-        status: 'Live — demo uses fake data only',
-        title: 'Simple records for a care centre.',
-        image: null,
-        imageAlt: '',
-        problem:
-            'Children’s files lived in paper folders. Finding one record took time, reports for partners took days to prepare, and papers could get lost or damaged.',
-        solution:
-            'CareTrack: one place for centre records, with clear roles for staff, safe backups, and reports at the press of a button. Our public demo only ever shows invented example entries — never real children’s names, photos or details.',
-        scope: ['Records in one place', 'Staff roles and logins', 'Backups', 'One-click reports', 'Training and handover'],
-        price: 'Custom quote. Final price is fixed in a written quote after a free discovery call.',
-        timeline: 'Timeline is agreed in writing before we start.',
-        next: 'Send us a WhatsApp and we will walk you through the demo.',
-        demo: { label: 'Open the CareTrack demo', url: 'https://caretrack-six.vercel.app/dashboard' },
-    },
-    {
-        id: 'shuledirect',
-        badge: 'ShuleDirect',
-        status: 'In development',
-        title: 'Fees, attendance and reports for schools.',
-        image: null,
-        imageAlt: '',
-        problem:
-            'Many schools track fees and attendance on paper or in scattered spreadsheets. Following up on balances is slow, and term reports take weeks.',
-        solution:
-            'ShuleDirect (in development): fee tracking with M-Pesa records, attendance, and reports for head teachers and parents — in Kiswahili and English, friendly on slow connections.',
-        scope: ['Fee tracking', 'M-Pesa records', 'Attendance', 'Term reports', 'Parent messages', 'Training for school staff'],
-        price: 'Custom quote. Final price is fixed in a written quote after a free discovery call.',
-        timeline: 'Timeline is agreed in writing before we start.',
-        next: 'Run a school? Message us on WhatsApp and we will keep you posted.',
-        demo: null,
-    },
-];
+import { useSiteContent } from '@/lib/site-content';
 
 const DEPLOYMENTS = [
     { name: 'UAUT Connect', desc: 'Campus and admissions portal for the United African University of Tanzania, Kigamboni.', url: 'https://www.uautconnect.com/', img: '/assets/work/uautconnect.png' },
@@ -72,6 +16,12 @@ const DEPLOYMENTS = [
 ];
 
 export default function WorkPage() {
+    const { work, contact } = useSiteContent();
+
+    useEffect(() => {
+        document.title = 'Our Work — Altraware Technologies';
+    }, []);
+
     return (
         <>
             <InnerNav />
@@ -88,7 +38,7 @@ export default function WorkPage() {
 
             <main className="band band--paper">
                 <div className="band__inner">
-                    {CASES.map((c) => (
+                    {work.map((c) => (
                         <article key={c.id} id={c.id} style={{ marginBottom: '2.5rem' }}>
                             <div className="tile tile--e" style={{ padding: '2rem' }}>
                                 <div className="tagrow">
@@ -166,9 +116,9 @@ export default function WorkPage() {
                         <h2>Have something similar in mind?</h2>
                         <p>One clear next step: message us and tell us about your business.</p>
                         <div className="work-page__cta-row">
-                            <a href={CONTACT.whatsapp} target="_blank" rel="noopener noreferrer" className="work-page__btn">Message us on WhatsApp</a>
-                            <a href={`mailto:${CONTACT.email}`} className="work-page__btn work-page__btn--ghost">
-                                {CONTACT.email}
+                            <a href={contact.whatsapp} target="_blank" rel="noopener noreferrer" className="work-page__btn">Message us on WhatsApp</a>
+                            <a href={`mailto:${contact.email}`} className="work-page__btn work-page__btn--ghost">
+                                {contact.email}
                             </a>
                         </div>
                     </div>

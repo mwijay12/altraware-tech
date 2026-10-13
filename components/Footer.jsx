@@ -4,7 +4,8 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { SOCIAL_ICONS, WIGGLE_CONFIG, CONTACT } from '@/lib/data';
+import { SOCIAL_ICONS, WIGGLE_CONFIG } from '@/lib/data';
+import { useSiteContent } from '@/lib/site-content';
 import { goWithWipe } from './wipe';
 
 function initWiggle(element, intensity) {
@@ -20,6 +21,7 @@ function initWiggle(element, intensity) {
 
 export default function Footer() {
     const router = useRouter();
+    const { contact } = useSiteContent();
 
     const onNav = (e, href, label) => {
         e.preventDefault();
@@ -188,9 +190,9 @@ export default function Footer() {
                 {/* Contact */}
                 <div className="footer-column">
                     <span className="footer-badge">contact</span>
-                    <a href="mailto:altrawaretechnology@gmail.com" className="footer-email">altrawaretechnology@gmail.com</a>
-                    <a href={CONTACT.whatsapp} target="_blank" rel="noopener noreferrer" className="footer-whatsapp">send us a whatsapp*</a>
-                    <p className="footer-note">*{CONTACT.phonePrimary} · {CONTACT.hours}</p>
+                    <a href={`mailto:${contact.email}`} className="footer-email">{contact.email}</a>
+                    <a href={contact.whatsapp} target="_blank" rel="noopener noreferrer" className="footer-whatsapp">send us a whatsapp*</a>
+                    <p className="footer-note">*{contact.phonePrimary} · {contact.hours}</p>
                     <div className="footer-socials" id="footer-socials">
                         {SOCIAL_ICONS.map(({ href, label, svg }) => (
                             <a

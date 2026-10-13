@@ -3,13 +3,17 @@
 import { useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { CARDS_DATA, CONTACT } from "@/lib/data";
+import { CONTACT } from "@/lib/data";
+import { useSiteContent } from "@/lib/site-content";
 
 export default function ServiceCards() {
+  const { servicesHeading, services, contact } = useSiteContent();
+  const waBase = (contact && contact.whatsapp) || CONTACT.whatsapp;
+
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    // Animate underline SVG paths on scroll (from HeroSection)
+    // Underline draw on scroll
     gsap.to(".title-underline-svg path", {
       strokeDashoffset: 0,
       duration: 1.2,
@@ -22,70 +26,55 @@ export default function ServiceCards() {
       },
     });
 
-    initCardAnimations();
+    // Entrance cascade — clearProps on complete so hover tweens
+    // can never strand a card half-faded if interrupted.
+    gsap.fromTo(
+      ".service-cards-grid .card",
+      { y: 90, opacity: 0, rotation: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.9,
+        ease: "expo.out",
+        stagger: 0.1,
+        clearProps: "all",
+        scrollTrigger: { trigger: ".service-cards-wrapper", start: "top 72%", once: true },
+      }
+    );
 
-    const isDesktop = window.matchMedia("(min-width: 769px)").matches;
-    const homeRotations = [-5, 4, -5, 6];
-
-    // Entrance cascade (desktop fan layout only — mobile uses pinned stack)
-    if (isDesktop) {
-      gsap.fromTo(
-        ".card",
-        { y: 130, opacity: 0, rotation: (i) => (i % 2 ? -18 : 18) },
-        {
-          y: 0,
-          opacity: 1,
-          rotation: (i) => homeRotations[i % homeRotations.length],
-          duration: 1.1,
-          ease: "expo.out",
-          stagger: 0.12,
-          scrollTrigger: { trigger: ".service-cards-wrapper", start: "top 70%", once: true },
-        }
-      );
-
-      // 3D sticker bounce and tilt on card hover
-      document.querySelectorAll(".card").forEach((card) => {
-        const chip = card.querySelector(".tech-chip img");
-        if (!chip) return;
-        card.addEventListener("mouseenter", () => {
-          gsap.to(chip, {
-            scale: 1.25,
-            rotation: 12,
-            y: -12,
-            duration: 0.45,
-            ease: "back.out(2)",
-            overwrite: "auto"
-          });
-        });
-        card.addEventListener("mouseleave", () => {
-          gsap.to(chip, {
-            scale: 1,
-            rotation: 0,
-            y: 0,
-            duration: 0.5,
-            ease: "power2.out",
-            overwrite: "auto"
-          });
-        });
+    // Hover lift — overwrite:'auto' only touches its own props,
+    // so it can never kill the entrance opacity mid-flight.
+    const fineHover = window.matchMedia("(hover: hover)").matches;
+    if (fineHover) {
+      document.querySelectorAll(".service-cards-grid .card").forEach((card) => {
+        const chip = card.querySelector(".tech-chip");
+        const onEnter = () => {
+          gsap.to(card, { y: -12, rotation: 0, scale: 1.02, duration: 0.5, ease: "expo.out", overwrite: "auto" });
+          if (chip) gsap.to(chip, { rotation: "+=360", duration: 0.9, ease: "power2.inOut", overwrite: "auto" });
+        };
+        const onLeave = () => {
+          gsap.to(card, { y: 0, scale: 1, duration: 0.7, ease: "elastic.out(1, 0.6)", overwrite: "auto" });
+        };
+        card.addEventListener("mouseenter", onEnter);
+        card.addEventListener("mouseleave", onLeave);
       });
     }
 
-    // Tech chips pop in, then float forever
-    gsap.utils.toArray(".tech-chip").forEach((chip, i) => {
+    // Tech chips pop in, then float (y only — hover owns rotation)
+    gsap.utils.toArray(".service-cards-grid .tech-chip").forEach((chip, i) => {
       gsap.fromTo(
         chip,
         { scale: 0, rotation: -20 },
         {
           scale: 1,
-          rotation: (i % 2 === 0 ? 6 : -6),
+          rotation: i % 2 === 0 ? 6 : -6,
           duration: 0.9,
           ease: "back.out(1.8)",
-          delay: 0,
           scrollTrigger: { trigger: ".service-cards-wrapper", start: "top 70%", once: true },
           onComplete: () =>
             gsap.to(chip, {
-              y: -12,
-              duration: 1.8 + (i % 5) * 0.25,
+              y: -10,
+              duration: 1.8 + (i % 4) * 0.25,
               ease: "sine.inOut",
               repeat: -1,
               yoyo: true,
@@ -95,7 +84,7 @@ export default function ServiceCards() {
     });
 
     // List items cascade per card
-    gsap.utils.toArray(".card").forEach((card) => {
+    gsap.utils.toArray(".service-cards-grid .card").forEach((card) => {
       gsap.fromTo(
         card.querySelectorAll(".card-list li"),
         { x: -16, opacity: 0 },
@@ -105,7 +94,7 @@ export default function ServiceCards() {
           duration: 0.5,
           ease: "power2.out",
           stagger: 0.06,
-          scrollTrigger: { trigger: card, start: "top 85%", once: true },
+          scrollTrigger: { trigger: card, start: "top 88%", once: true },
         }
       );
     });
@@ -117,10 +106,10 @@ export default function ServiceCards() {
 
   return (
     <>
-      {/* ─── "Call us if you need:" Heading ─── */}
+      {/* ─── Heading ─── */}
       <div className="title-container">
         <h2 className="main-title">
-          talk to us if you <span className="italic-text">need:</span>
+          {servicesHeading}
           <img
             src="/assets/tech/icon-cloud.png"
             alt=""
@@ -153,28 +142,19 @@ export default function ServiceCards() {
         </svg>
       </div>
 
-      {/* ─── Service Cards ─── */}
-      <div className="cards-wrapper" id="cards-wrapper">
-        {CARDS_DATA.map((card) => (
-          <div key={card.color} className={`card card-${card.color}`}>
-            <div className="card-top-bar">
+      {/* ─── Service Cards Grid ─── */}
+      <div className="cards-wrapper service-cards-grid" id="cards-wrapper">
+        {services.map((card) => (
+          <article key={card.color + card.title} className={`card card-${card.color}`}>
+            <div className="card-photo">
+              <img src={card.image} alt={card.imageAlt || card.title} loading="lazy" />
               <span className="card-badge">{card.tag}</span>
-            </div>
-            <div className="tech-chip">
-              <img
-                src={card.icon}
-                alt={`${card.title} icon`}
-                loading="lazy"
-                aria-hidden="true"
-              />
+              <div className="tech-chip">
+                <img src={card.icon} alt="" aria-hidden="true" loading="lazy" />
+              </div>
             </div>
             <h3 className="card-title">{card.title}</h3>
-            <svg
-              width="100%"
-              height="10"
-              className="card-divider-svg"
-              aria-hidden="true"
-            >
+            <svg width="100%" height="10" className="card-divider-svg" aria-hidden="true">
               <use href="#card-divider" />
             </svg>
             <ul className="card-list">
@@ -194,180 +174,17 @@ export default function ServiceCards() {
               ))}
             </ul>
             <a
-              href={`${CONTACT.whatsapp}%20I%20want%20to%20discuss%20${encodeURIComponent(card.title)}`}
+              href={`${waBase}%20I%20want%20to%20discuss%20${encodeURIComponent(card.title)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="card-action-hint"
-              onClick={(e) => e.stopPropagation()}
             >
               <span>Chat on WhatsApp</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
             </a>
-          </div>
+          </article>
         ))}
       </div>
     </>
   );
-}
-
-function initCardAnimations() {
-  const cards = gsap.utils.toArray(".card");
-  if (!cards.length) return;
-
-  const originalData = [
-    { rotation: -5 },
-    { rotation: 4 },
-    { rotation: -5 },
-    { rotation: 6 },
-  ];
-
-  const isMobile = window.matchMedia("(max-width: 768px)").matches;
-  //   let leaveTimeout = null; no need GSAP can handle the interlining tweens internally once you set overwrite: true
-
-  if (!isMobile) {
-    cards.forEach((card, index) => {
-      card.addEventListener("mouseenter", () => {
-        // if (leaveTimeout) {
-        //   clearTimeout(leaveTimeout);
-        //   leaveTimeout = null;
-        // }
-        const hoverGap = 120;
-        const clusterGap = 150;
-        const cardWidth = 320;
-        const hoveredLeft = cards[index].offsetLeft;
-        const leftCards = [];
-        const rightCards = [];
-
-        cards.forEach((otherCard, otherIndex) => {
-          if (otherIndex < index)
-            leftCards.push({ card: otherCard, index: otherIndex });
-          else if (otherIndex > index)
-            rightCards.push({ card: otherCard, index: otherIndex });
-        });
-
-        const currentTop = cards[index].offsetTop;
-        const targetCommonTop = 50;
-        const moveY = targetCommonTop - currentTop;
-
-        gsap.to(cards[index], {
-          x: 0,
-          y: moveY,
-          rotation: 0,
-          scale: 1.08,
-          duration: 0.9,
-          ease: "elastic.out(1, 0.5)",
-          overwrite: true,
-        });
-
-        if (rightCards.length) {
-          const clusterStart = hoveredLeft + cardWidth + hoverGap;
-          rightCards.forEach((item, i) => {
-            const targetAbsLeft = clusterStart + i * clusterGap;
-            const targetX = Math.max(targetAbsLeft - item.card.offsetLeft, 10);
-            const angleRad =
-              originalData[item.index].rotation * (Math.PI / 180);
-            const targetY = targetX * Math.tan(angleRad);
-            gsap.to(item.card, {
-              x: targetX,
-              y: targetY,
-              rotation: originalData[item.index].rotation,
-              scale: 1,
-              duration: 1.0,
-              ease: "elastic.out(1, 0.5)",
-              overwrite: true,
-            });
-          });
-        }
-
-        if (leftCards.length) {
-          leftCards.reverse();
-          const clusterStart = hoveredLeft - hoverGap - cardWidth;
-          leftCards.forEach((item, i) => {
-            const targetAbsLeft = clusterStart - i * clusterGap;
-            const targetX = Math.min(targetAbsLeft - item.card.offsetLeft, -10);
-            const angleRad =
-              originalData[item.index].rotation * (Math.PI / 180);
-            const targetY = targetX * Math.tan(angleRad);
-            gsap.to(item.card, {
-              x: targetX,
-              y: targetY,
-              rotation: originalData[item.index].rotation,
-              scale: 1,
-              duration: 1.0,
-              ease: "elastic.out(1, 0.5)",
-              overwrite: true,
-            });
-          });
-        }
-      });
-
-      card.addEventListener("mouseleave", () => {
-        // leaveTimeout = setTimeout(() => {
-        cards.forEach((c, i) => {
-          gsap.to(c, {
-            x: 0,
-            y: 0,
-            scale: 1,
-            rotation: originalData[i].rotation,
-            duration: 1.0,
-            ease: "elastic.out(1, 0.5)",
-            overwrite: true,
-            zIndex: i + 1,
-            delay: 0.08,
-          });
-        });
-        // }, 80);
-      });
-    });
-  } else {
-    // ─── Mobile: Stacked card scroll reveal ───
-    const cardsWrapper = document.querySelector(".cards-wrapper");
-    const scrollPerCard = window.innerHeight * 0.8;
-    const navH = 60;
-    const mobileRotations = [-5, 4, -5, 4];
-
-    cards.forEach((card, i) => {
-      gsap.set(card, {
-        position: "absolute",
-        left: "50%",
-        top: "0",
-        xPercent: -50,
-        y: i === 0 ? 0 : window.innerHeight * 1.1,
-        rotation: mobileRotations[i % mobileRotations.length],
-        zIndex: i + 1,
-        transformOrigin: "center center",
-      });
-    });
-
-    const wrapperH =
-      window.innerHeight * 0.7 + scrollPerCard * (cards.length - 1);
-    gsap.set(cardsWrapper, { height: wrapperH });
-
-    ScrollTrigger.create({
-      trigger: cardsWrapper,
-      start: `top ${navH}px`,
-      end: `+=${scrollPerCard * (cards.length - 1)}`,
-      pin: true,
-      pinSpacing: true,
-      id: "mobile-cards-pin",
-    });
-
-    cards.forEach((card, i) => {
-      if (i === 0) return;
-      gsap.fromTo(
-        card,
-        { y: window.innerHeight * 1.1 },
-        {
-          y: 0,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: cardsWrapper,
-            start: `top+=${(i - 1) * scrollPerCard} ${navH}px`,
-            end: `top+=${i * scrollPerCard} ${navH}px`,
-            scrub: 0.4,
-          },
-        },
-      );
-    });
-  }
 }

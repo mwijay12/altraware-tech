@@ -760,3 +760,55 @@ details.faq .faq__a {
     .stats-band { grid-template-columns: 1fr; }
     .pg-art { width: 100%; }
 }
+
+/* ─── Admin console ─── */
+.admin-section {
+    margin-bottom: 1.5rem;
+}
+
+.admin-field {
+    display: block;
+    margin-top: 0.9rem;
+}
+
+.admin-field > span {
+    display: block;
+    font-family: 'Epilogue', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--color-darkblue);
+    margin-bottom: 0.35rem;
+}
+
+.admin-field input,
+.admin-field textarea {
+    width: 100%;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--color-dark);
+    background: var(--color-white);
+    border: 2px solid var(--color-dark);
+    border-radius: 0.75rem;
+    padding: 0.65rem 0.9rem;
+    outline: none;
+}
+
+.admin-field input:focus,
+.admin-field textarea:focus {
+    border-color: var(--color-darkblue);
+    box-shadow: 3px 3px 0 var(--color-darkblue);
+}
+
+.admin-field textarea {
+    resize: vertical;
+}
+
+.admin-field small {
+    display: block;
+    margin-top: 0.3rem;
+    font-size: 0.82rem;
+    opacity: 0.7;
+}

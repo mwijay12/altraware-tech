@@ -1,12 +1,16 @@
-import InnerNav from '@/components/InnerNav';
-import { CONTACT } from '@/lib/data';
+'use client';
 
-export const metadata = {
-    title: 'Contact — Altraware Technologies',
-    description: 'Start a project with Altraware Technologies in Dar es Salaam. WhatsApp +255 792 867 427, email altrawaretechnology@gmail.com. Mon–Sat, 8:00–18:00 EAT.',
-};
+import { useEffect } from 'react';
+import InnerNav from '@/components/InnerNav';
+import InquiryForm from '@/components/InquiryForm';
+import { useSiteContent } from '@/lib/site-content';
 
 export default function ContactPage() {
+    const { contact } = useSiteContent();
+
+    useEffect(() => {
+        document.title = 'Contact — Altraware Technologies';
+    }, []);
     return (
         <>
             <InnerNav />
@@ -19,10 +23,10 @@ export default function ContactPage() {
                         The fastest way to reach us is WhatsApp.
                     </p>
                     <div style={{ marginTop: '1.75rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-                        <a href={CONTACT.whatsapp} target="_blank" rel="noopener noreferrer" className="abtn abtn--pop">
-                            WhatsApp {CONTACT.phonePrimary}
+                        <a href={contact.whatsapp} target="_blank" rel="noopener noreferrer" className="abtn abtn--pop">
+                            WhatsApp {contact.phonePrimary}
                         </a>
-                        <a href={`mailto:${CONTACT.email}`} className="abtn">Email us</a>
+                        <a href={`mailto:${contact.email}`} className="abtn">Email us</a>
                     </div>
                 </div>
             </header>
@@ -33,28 +37,28 @@ export default function ContactPage() {
                         <div className="tile tile--e">
                             <h3>WhatsApp (fastest)</h3>
                             <p>
-                                <a href={CONTACT.whatsapp} target="_blank" rel="noopener noreferrer" style={{ fontWeight: 800 }}>
-                                    {CONTACT.phonePrimary} →
+                                <a href={contact.whatsapp} target="_blank" rel="noopener noreferrer" style={{ fontWeight: 800 }}>
+                                    {contact.phonePrimary} →
                                 </a>
                             </p>
-                            <p>{CONTACT.hours}</p>
+                            <p>{contact.hours}</p>
                         </div>
                         <div className="tile tile--e">
                             <h3>Email</h3>
                             <p>
-                                <a href={`mailto:${CONTACT.email}`} style={{ fontWeight: 800 }}>{CONTACT.email}</a>
+                                <a href={`mailto:${contact.email}`} style={{ fontWeight: 800 }}>{contact.email}</a>
                             </p>
                             <p>We reply within one working day.</p>
                         </div>
                         <div className="tile tile--e">
                             <h3>Phone</h3>
-                            <p>{CONTACT.phonePrimary}</p>
-                            <p>{CONTACT.phoneSecondary}</p>
+                            <p>{contact.phonePrimary}</p>
+                            <p>{contact.phoneSecondary}</p>
                         </div>
                         <div className="tile tile--e">
                             <h3>Office</h3>
-                            <p>{CONTACT.address}</p>
-                            <p>{CONTACT.hours}</p>
+                            <p>{contact.address}</p>
+                            <p>{contact.hours}</p>
                         </div>
                     </div>
                     <div className="map-embed">
@@ -65,6 +69,9 @@ export default function ContactPage() {
                             referrerPolicy="strict-origin-when-cross-origin"
                             allowFullScreen
                         />
+                    </div>
+                    <div style={{ marginTop: '1.5rem', maxWidth: '640px' }}>
+                        <InquiryForm />
                     </div>
                 </div>
             </section>

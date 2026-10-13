@@ -3,7 +3,8 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { gsap } from 'gsap';
-import { WIGGLE_CONFIG, CONTACT } from '@/lib/data';
+import { WIGGLE_CONFIG } from '@/lib/data';
+import { useSiteContent } from '@/lib/site-content';
 import { goWithWipe } from './wipe';
 
 function initWiggle(element, intensity) {
@@ -26,6 +27,7 @@ function initWiggle(element, intensity) {
 
 export default function Navbar() {
     const router = useRouter();
+    const { contact } = useSiteContent();
 
     const onNav = (e, href, label) => {
         e.preventDefault();
@@ -396,7 +398,7 @@ export default function Navbar() {
                             <div className="nav-popout-inner">
                                 <h4 className="nav-wa-title">whatsapp us</h4>
                                 <p className="nav-wa-desc">Fastest reply, Mon–Sat 8:00–18:00 EAT. Tap below to start chatting.</p>
-                                <a href={CONTACT.whatsapp} target="_blank" rel="noopener noreferrer" className="nav-wa-link">
+                                <a href={contact.whatsapp} target="_blank" rel="noopener noreferrer" className="nav-wa-link">
                                     <span className="nav-wa-link-text">Start chat</span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 169 10" fill="none" className="draw-btn__svg nav-wa-link-svg">
                                         <path d="M1 6.5661C56.3941 3.06082 112.187 1.20095 168 0.999878" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.25" />
