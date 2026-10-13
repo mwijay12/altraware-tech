@@ -1,0 +1,212 @@
+/* ─── Kinetic fullscreen menu ─── */
+.km-root {
+    position: relative;
+    z-index: 9500;
+}
+
+.km-wrap {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9500;
+}
+
+.km-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(11, 37, 69, 0.55);
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    visibility: hidden;
+}
+
+.km-menu {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: min(880px, 100%);
+    height: 100%;
+    overflow: hidden;
+    color: var(--color-white);
+}
+
+.km-bg {
+    position: absolute;
+    inset: 0;
+}
+
+.km-panel {
+    position: absolute;
+    inset: 0;
+    transform: translateX(101%);
+}
+
+.km-panel.first { background: #0b2545; }
+.km-panel.second { background: #123b8f; }
+.km-menu .km-panel:last-child { background: #123b8f; }
+.km-panel:not(.first):not(.second) { background: #1a4fc4; }
+
+.km-shapes {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.km-shape {
+    position: absolute;
+    right: -60px;
+    top: 8%;
+    width: min(420px, 60%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.km-shape.active { opacity: 1; }
+
+.km-head {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.4rem 1.75rem;
+}
+
+.km-brand {
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+}
+
+.km-close {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 800;
+    font-size: 0.9rem;
+    color: var(--color-white);
+    background: rgba(255, 255, 255, 0.12);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 999px;
+    padding: 0.55rem 1.1rem;
+    cursor: pointer;
+}
+
+.km-close-icon { transition: transform 0.4s ease; }
+.km-close:hover .km-close-icon { transform: rotate(135deg); }
+
+.km-body {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 2rem;
+    padding: 0.5rem 1.75rem 2rem;
+    height: calc(100% - 80px);
+    overflow-y: auto;
+}
+
+.km-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.km-item { border-bottom: 1px solid rgba(255, 255, 255, 0.16); }
+
+.km-link {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0.7rem 0;
+    text-decoration: none;
+    color: var(--color-white);
+    overflow: hidden;
+}
+
+.km-link-text {
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 900;
+    letter-spacing: -1px;
+    font-size: clamp(1.7rem, 4vw, 2.6rem);
+    line-height: 1.05;
+    display: inline-block;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.km-link:hover .km-link-text {
+    transform: translateX(12px);
+    color: #bfd7ff;
+}
+
+.km-link-note {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    opacity: 0.65;
+}
+
+.km-side {
+    align-self: start;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    border-radius: 1.25rem;
+    padding: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-top: 0.5rem;
+}
+
+.km-side-kicker {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.7;
+}
+
+.km-wa {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    white-space: nowrap;
+    color: var(--color-white);
+    text-decoration: none;
+    background: var(--color-orange);
+    border-radius: 999px;
+    padding: 0.7rem 1.2rem;
+    text-align: center;
+}
+
+.km-wa svg {
+    flex-shrink: 0;
+}
+
+.km-mail {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--color-white);
+    overflow-wrap: anywhere;
+}
+
+.km-hours {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    opacity: 0.75;
+    line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+    .km-body { grid-template-columns: 1fr; }
+    .km-shape { width: 70%; top: 4%; }
+}

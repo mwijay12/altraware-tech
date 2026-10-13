@@ -1,0 +1,344 @@
+/* ─── MotionCard Section ─────────────────────────────────────────────────── */
+.motion-card-section {
+    position: relative;
+    width: 100%;
+    padding: 120px 60px 100px;
+    text-align: center;
+    overflow: hidden;
+    z-index: 1;
+}
+
+/* ─── Part 1: Heading ────────────────────────────────────────────────────── */
+.motion-card__heading {
+    max-width: 900px;
+    margin: 0 auto 60px;
+    position: relative;
+}
+
+.motion-card__badge {
+    display: inline-block;
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 800;
+    font-size: 0.85rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    background: var(--color-dark);
+    color: var(--color-white);
+    border-radius: 999px;
+    padding: 0.45rem 1.1rem;
+    transform: rotate(-2deg);
+    margin-bottom: 1.25rem;
+}
+
+.motion-card__title {
+    font-family: 'Epilogue', sans-serif;
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-weight: 800;
+    line-height: 1.02;
+    letter-spacing: -2px;
+    color: var(--color-dark);
+    margin-bottom: 0.75rem;
+    cursor: url("/assets/Cursor SVG/cursor-text.svg") 12 12, auto;
+}
+
+.motion-card__title em {
+    font-style: italic;
+    color: var(--color-darkblue);
+}
+
+.motion-card__subtitle {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 1.15rem;
+    line-height: 1.5;
+    letter-spacing: 0;
+    color: var(--color-dark);
+    position: relative;
+    display: inline-block;
+    top: 0;
+    opacity: 0.85;
+}
+
+/* SVG sticker placeholder (top-right of subtitle) */
+.motion-card__sticker {
+    position: absolute;
+    display: inline-block;
+    pointer-events: none;
+}
+
+.motion-card__sticker--top {
+    top: -20px;
+    right: -25px;
+    width: 140px;
+    height: 90px;
+    rotate: calc(-8deg);
+}
+
+.sticker-code-badge {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 14px 25px rgba(0, 0, 0, 0.3));
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.motion-card__subtitle:hover .sticker-code-badge {
+    transform: scale(1.15) rotate(6deg);
+}
+
+/* SVG underline under "from TV to TikTok." */
+.motion-card__underline-svg {
+    display: block;
+    max-width: 720px;
+    margin: -45px auto 0;
+    color: var(--color-dark);
+    height: auto;
+
+}
+
+/* ─── Part 2: Cards Area ─────────────────────────────────────────────────── */
+.motion-card__cards-area {
+    position: relative;
+    width: 100%;
+    max-width: 1100px;
+    height: 550px;
+    margin: 40px auto 80px;
+}
+
+/* Blue blob behind cards */
+.motion-card__blob {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-116.5%, -45%);
+    width: 580px;
+    height: 500px;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.motion-card__blob-svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* ─── Individual Cards ───────────────────────────────────────────────────── */
+.motion-card__cards {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+.motion-card__card {
+    position: relative;
+    width: clamp(280px, 25vw, 390px);
+    aspect-ratio: 16 / 9;
+    border-radius: 0.75rem;
+    overflow: clip;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.18), 0 2px 6px rgba(0, 0, 0, 0.08);
+    flex-shrink: 0;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: #0f172a;
+}
+
+.motion-card__card:hover {
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
+    z-index: 8 !important;
+}
+
+.motion-card__card-image {
+    width: 100%;
+    height: 100%;
+    background-color: #0d1b2a;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    position: relative;
+}
+
+.motion-card__card-image .cover-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+}
+
+/* Card 1 — far left, tilted */
+.motion-card__card--1 {
+    transform: rotate(-6deg);
+    margin-right: -4vw;
+    z-index: 1;
+}
+
+/* Card 2 — second from left */
+.motion-card__card--2 {
+    transform: rotate(5deg);
+    margin-right: -4vw;
+    top: 1.5rem;
+    z-index: 2;
+}
+
+/* Card 3 — third, slightly raised */
+.motion-card__card--3 {
+    transform: rotate(-4deg);
+    margin-right: -4vw;
+    top: -1rem;
+    z-index: 3;
+}
+
+/* Card 4 — far right, tilted */
+.motion-card__card--4 {
+    transform: rotate(4deg);
+    z-index: 4;
+    top: 1rem;
+}
+
+/* ─── Floating Labels ────────────────────────────────────────────────────── */
+.motion-card__floating-labels {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.motion-card__floating-labels .motion-card__floating-label {
+    pointer-events: auto;
+}
+
+.motion-card__floating-label {
+    position: absolute;
+    padding: 0.1vw 0.5vw;
+    border-radius: 9999px;
+    border-bottom-left-radius: 0;
+    z-index: 10;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+}
+
+.motion-card__floating-text {
+    pointer-events: none;
+    margin: 0;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 450;
+    color: var(--color-dark);
+}
+
+/* Card 1 label — pink, center-left area */
+.motion-card__floating-label--pink {
+    background-color: #efbbd8;
+    top: 31%;
+    left: 30%;
+}
+
+/* Card 3 label — orange, bottom area */
+.motion-card__floating-label--orange {
+    background-color: #f4825c;
+    top: 69%;
+    left: 48%;
+}
+
+
+/* Card 4 label — green, top-right area */
+.motion-card__floating-label--red {
+    background-color: #dcec9d;
+    top: 46%;
+    left: 89%;
+}
+
+/* ─── Part 3: Bottom Text ────────────────────────────────────────────────── */
+.motion-card__footer-text {
+    max-width: 550px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.motion-card__description {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    line-height: 1.7;
+    color: var(--color-dark);
+    letter-spacing: -0.2px;
+    cursor: url("/assets/Cursor SVG/cursor-text.svg") 12 12, auto;
+}
+
+/* ─── Stats + CTA ─── */
+.motion-card__stats {
+    display: flex;
+    justify-content: center;
+    gap: 0.9rem;
+    flex-wrap: wrap;
+    margin-top: 1.75rem;
+}
+
+.motion-card__stat {
+    background: var(--color-white);
+    border: 2px solid var(--color-dark);
+    border-radius: 1rem;
+    box-shadow: 4px 4px 0 var(--color-dark);
+    padding: 0.7rem 1.1rem;
+    min-width: 130px;
+}
+
+.motion-card__stat:nth-child(odd) {
+    transform: rotate(-1.2deg);
+}
+
+.motion-card__stat:nth-child(even) {
+    transform: rotate(1.2deg);
+}
+
+.motion-card__stat-num {
+    display: block;
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 900;
+    font-size: 1.4rem;
+    letter-spacing: -0.5px;
+    color: var(--color-darkblue);
+}
+
+.motion-card__stat-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    opacity: 0.8;
+}
+
+.motion-card__cta-row {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1.75rem;
+}
+
+.motion-card__cta {
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    color: var(--color-white);
+    background: var(--color-dark);
+    border-radius: 999px;
+    padding: 0.85rem 1.7rem;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+}
+
+.motion-card__cta:hover {
+    transform: translateY(-2px) rotate(-1deg);
+}
+
+.motion-card__cta--ghost {
+    color: var(--color-dark);
+    background: transparent;
+    border: 2px solid var(--color-dark);
+}
