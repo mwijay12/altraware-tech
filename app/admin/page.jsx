@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import InnerNav from '@/components/InnerNav';
+import FirebaseAuth from '@/components/FirebaseAuth';
 import { DEFAULT_CONTENT, resetSiteContent, saveSiteContent, useSiteContent } from '@/lib/site-content';
 
 function Field({ label, value, onChange, hint }) {
@@ -120,11 +121,12 @@ export default function AdminPage() {
                         <p className="work-page__kicker">admin</p>
                         <h1 className="work-page__title">Console login.</h1>
                         <p className="work-page__intro">
-                            Enter the admin passcode (ADMIN_MASTER_KEY from .env.local).
+                            Sign in with an allowed Google account — or use the admin passcode (ADMIN_MASTER_KEY from .env.local).
                             Get it wrong and nothing happens — the site stays public and safe.
                         </p>
-                        <form onSubmit={login} className="tile tile--e" style={{ marginTop: '1.5rem' }}>
-                            <Field label="Passcode" value={passcode} onChange={setPasscode} />
+                        <FirebaseAuth onAuthed={() => setAuthed(true)} />
+                        <form onSubmit={login} className="tile tile--e" style={{ marginTop: '1rem' }}>
+                            <Field label="Passcode (alternative)" value={passcode} onChange={setPasscode} />
                             {loginError && <p style={{ color: '#a0325a', fontWeight: 700 }}>{loginError}</p>}
                             <button className="abtn abtn--pop" type="submit" style={{ marginTop: '1rem' }}>Unlock</button>
                         </form>
@@ -150,6 +152,22 @@ export default function AdminPage() {
                     </p>
                     <div style={{ display: 'flex', gap: '1rem', margin: '1.5rem 0', flexWrap: 'wrap' }}>
                         <Link href="/" className="abtn">View site</Link>
+                        <button
+                            className="abtn"
+                            onClick={async () => {
+                                try {
+                                    await fetch('/api/admin/session', { method: 'DELETE' });
+                                } catch { /* noop */ }
+                                try {
+                                    const { signOut } = await import('firebase/auth');
+                                    const { auth } = await import('@/lib/firebase');
+                                    if (auth) await signOut(auth).catch(() => {});
+                                } catch { /* firebase not configured */ }
+                                setAuthed(false);
+                            }}
+                        >
+                            Sign out
+                        </button>
                         <button
                             className="abtn"
                             onClick={() => {
@@ -187,7 +205,7 @@ export default function AdminPage() {
                                 />
                             ))}
                             {[0, 1, 2].map((i) => (
-                                <div key={i} style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '0.75rem' }}>
+                                <div key={i} className="admin-grid-2">
                                     <Field
                                         label={`Stat ${i + 1} number`}
                                         value={motion.stats[i]?.num}
