@@ -32,8 +32,11 @@ export async function POST(req) {
     }
 
     // ── Google login path ──
-    if (body.googleEmail) {
-        const email = String(body.googleEmail).trim().toLowerCase();
+    if ('googleEmail' in body) {
+        const email = String(body.googleEmail || '').trim().toLowerCase();
+        if (!email) {
+            return NextResponse.json({ error: 'No Google email provided.' }, { status: 400 });
+        }
         const allowed = getAllowedEmails();
         if (!allowed.length) {
             return NextResponse.json(

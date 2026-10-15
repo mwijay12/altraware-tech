@@ -39,3 +39,12 @@ body.is-transitioning .cursor-bubble {
     transform: scale(0) !important;
     display: none !important;
 }
+
+@media (hover: none), (max-width: 768px) {
+    .cursor-bubble {
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+    }
+}
