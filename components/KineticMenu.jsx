@@ -14,7 +14,8 @@ const LINKS = [
     { href: '/work', label: 'Work', shape: '5', note: 'Case studies' },
     { href: '/pricing', label: 'Pricing', shape: '1', note: 'Fixed packages' },
     { href: '/process', label: 'Process', shape: '2', note: 'How we work' },
-    { href: '/contact', label: 'Contact', shape: '3', note: "Let's build" },
+    { href: '/blog', label: 'Blog', shape: '3', note: 'Latest insights' },
+    { href: '/contact', label: 'Contact', shape: '4', note: "Let's build" },
 ];
 
 /**

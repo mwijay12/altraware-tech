@@ -38,6 +38,10 @@ export default function FirebaseAuth({ onAuthed }) {
         try {
             const result = await signInWithPopup(auth, googleProvider);
             const email = result?.user?.email || '';
+            if (!email) {
+                setError('No email address returned from Google account.');
+                return;
+            }
             const res = await fetch('/api/admin/session', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },

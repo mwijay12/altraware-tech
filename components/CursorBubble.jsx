@@ -5,6 +5,8 @@ import { gsap } from 'gsap';
 
 export default function CursorBubble() {
     useEffect(() => {
+        if (typeof window === 'undefined' || !window.matchMedia('(hover: hover)').matches) return;
+
         const cursorBubble = document.querySelector('.cursor-bubble');
         if (!cursorBubble) return;
 
