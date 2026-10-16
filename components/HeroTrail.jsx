@@ -23,7 +23,6 @@ export default function HeroTrail() {
     useEffect(() => {
         const layer = layerRef.current;
         if (!layer) return;
-        if (window.matchMedia('(hover: none)').matches) return;
         const hero = layer.parentElement;
         if (!hero) return;
 
@@ -32,28 +31,42 @@ export default function HeroTrail() {
         let lastX = -9999;
         let lastY = -9999;
 
-        const onMove = (e) => {
-            const dx = e.clientX - lastX;
-            const dy = e.clientY - lastY;
-            if (Math.hypot(dx, dy) < 90) return;
-            lastX = e.clientX;
-            lastY = e.clientY;
+        const spawnAt = (clientX, clientY) => {
+            const dx = clientX - lastX;
+            const dy = clientY - lastY;
+            if (Math.hypot(dx, dy) < (window.matchMedia('(hover: none)').matches ? 50 : 90)) return;
+            lastX = clientX;
+            lastY = clientY;
             const r = layer.getBoundingClientRect();
             const img = imgs[idx % imgs.length];
             idx += 1;
-            img.style.left = `${e.clientX - r.left}px`;
-            img.style.top = `${e.clientY - r.top}px`;
+            img.style.left = `${clientX - r.left}px`;
+            img.style.top = `${clientY - r.top}px`;
             img.style.transform = `translate(-50%, -50%) rotate(${(Math.random() * 24 - 12).toFixed(1)}deg) scale(1)`;
             img.dataset.status = 'active';
             clearTimeout(img._hide);
             img._hide = setTimeout(() => {
                 img.dataset.status = 'inactive';
                 img.style.transform = 'translate(-50%, -50%) scale(0)';
-            }, 900);
+            }, 1200);
+        };
+
+        const onMove = (e) => spawnAt(e.clientX, e.clientY);
+        const onTouch = (e) => {
+            if (e.touches && e.touches[0]) {
+                spawnAt(e.touches[0].clientX, e.touches[0].clientY);
+            }
         };
 
         hero.addEventListener('mousemove', onMove);
-        return () => hero.removeEventListener('mousemove', onMove);
+        hero.addEventListener('touchmove', onTouch, { passive: true });
+        hero.addEventListener('touchstart', onTouch, { passive: true });
+
+        return () => {
+            hero.removeEventListener('mousemove', onMove);
+            hero.removeEventListener('touchmove', onTouch);
+            hero.removeEventListener('touchstart', onTouch);
+        };
     }, []);
 
     return (

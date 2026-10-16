@@ -81,6 +81,14 @@
     pointer-events: none;
 }
 
+@media (max-width: 768px) {
+    .hero-trail img {
+        width: 130px;
+        height: 85px;
+        border: 2px solid var(--color-white);
+    }
+}
+
 .hero-trail img[data-status='active'] {
     opacity: 1;
 }

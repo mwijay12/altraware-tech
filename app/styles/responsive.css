@@ -71,7 +71,7 @@
   /* ── Content / Hero Title ───────── */
   .content-section {
     padding: 80px 0 0;
-    overflow: visible;
+    overflow: hidden;
   }
 
   .main-title {
@@ -124,44 +124,50 @@
     width: 100%;
     justify-content: flex-start;
     align-items: flex-start;
-    min-height: 340px;
+    min-height: 280px;
+    position: relative;
+    overflow: hidden;
   }
 
   .marquee-text-container {
     text-align: left;
+    position: relative;
+    z-index: 5;
   }
 
   .marquee-left h2 {
-    font-size: 2.6rem;
+    font-size: 2.2rem;
     letter-spacing: -1.5px;
     margin-bottom: 0;
     margin-right: 0;
+    line-height: 1.1;
   }
 
   .marquee-blob-container {
-    width: 240px;
-    height: 280px;
-    top: 45%;
-    left: 20%;
+    width: 180px;
+    height: 200px;
+    top: 40%;
+    left: 35%;
+    opacity: 0.85;
   }
 
   .marquee-svg-item:nth-child(1) {
-    width: 60px;
+    width: 45px;
     bottom: 10%;
-    left: 55%;
+    left: 50%;
   }
 
   .marquee-svg-item:nth-child(2) {
-    width: 220px;
+    width: 150px;
     bottom: -5%;
-    left: 55%;
+    left: 50%;
   }
 
   .marquee-underline {
-    top: 5rem;
+    top: 4.2rem;
     right: auto;
-    left: 9.5rem;
-    width: 70px;
+    left: 8rem;
+    width: 60px;
   }
 
   /* ── Logo columns → 2-row horizontal scroll grid ── */
@@ -326,46 +332,54 @@
 /* ── Motion cards: had NO mobile styles — stack, shrink blob ── */
 @media (max-width: 768px) {
   .motion-card-section {
-    padding: 70px 20px 60px;
+    padding: 60px 16px 50px;
+    overflow: hidden;
   }
   .motion-card__heading {
-    margin-bottom: 30px;
+    margin-bottom: 24px;
   }
   .motion-card__title {
-    font-size: clamp(1.7rem, 7vw, 2.2rem);
+    font-size: clamp(1.6rem, 6.5vw, 2.1rem);
     letter-spacing: -1px;
+    line-height: 1.1;
   }
-  .motion-card__subtitle { font-size: 1rem; }
+  .motion-card__subtitle {
+    font-size: 0.95rem;
+    padding-right: 35px;
+  }
   .motion-card__sticker--top {
-    width: 90px;
-    height: 60px;
-    top: -14px;
-    right: -8px;
+    width: 45px;
+    height: 35px;
+    top: -10px;
+    right: -10px;
   }
   .motion-card__underline-svg {
-    margin: -20px auto 0;
-    max-width: 100%;
+    margin: -10px auto 0;
+    max-width: 90%;
   }
   .motion-card__cards-area {
     height: auto;
-    margin: 20px auto 40px;
-    max-width: 420px;
+    margin: 15px auto 30px;
+    max-width: 100%;
+    overflow: hidden;
   }
   .motion-card__blob {
-    width: min(420px, 110vw);
-    height: 340px;
-    transform: translate(-50%, -8%);
-    top: 0;
+    width: 280px;
+    height: 260px;
+    transform: translate(-50%, -20%);
+    top: 10%;
     left: 50%;
+    opacity: 0.7;
   }
   .motion-card__cards {
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.25rem;
     height: auto;
+    align-items: center;
   }
   .motion-card__card {
-    width: 100%;
-    max-width: 380px;
+    width: 92%;
+    max-width: 340px;
   }
   .motion-card__card--1,
   .motion-card__card--2,
@@ -378,7 +392,7 @@
   .motion-card__card:nth-child(odd) { transform: rotate(-1deg); }
   .motion-card__card:nth-child(even) { transform: rotate(1deg); }
   .motion-card__floating-labels { display: none; }
-  .motion-card__description { font-size: 1.05rem; }
+  .motion-card__description { font-size: 1rem; }
   .motion-card__stats { gap: 0.6rem; }
   .motion-card__stat { min-width: calc(50% - 0.5rem); flex: 1 1 calc(50% - 0.5rem); }
 }
@@ -403,7 +417,6 @@
     bottom: 20px;
     left: 20px;
   }
-  .hero-trail { display: none; }
   .home-header__smiley { width: 0.9em; height: 0.9em; }
   .home-header__star { width: 0.7em; height: 0.7em; }
 }
@@ -419,16 +432,39 @@
 /* ── Horizontal words mobile ── */
 @media (max-width: 768px) {
   .horizontal-words__relative {
-    padding-left: 12vw;
-    padding-right: 12vw;
+    padding-left: 5vw;
+    padding-right: 5vw;
+    top: 30%;
   }
-  .horizontal-words__h2 { font-size: 11vw; }
+  .horizontal-words__h2 {
+    font-size: 8.5vw;
+    letter-spacing: -0.5px;
+  }
+  .horizontal-words__sticker-watch {
+    width: 3.5em;
+  }
+  .horizontal-words__sticker-cursor {
+    width: 4em;
+  }
+  .horizontal-words__sticker-phone {
+    width: 4.5em;
+  }
+  .horizontal-words__arrow-svg {
+    width: 10em;
+    transform: translate(-120%, -20%);
+  }
+  .horizontal-words__arrow-end-svg {
+    width: 4em;
+  }
   .horizontal-words__bottom-text {
-    padding: 0.9rem 1.1rem;
-    bottom: 4vh;
+    padding: 0.75rem 1rem;
+    bottom: 3vh;
+    max-width: 95vw;
   }
-  .horizontal-words__bottom-text-l { font-size: 1rem; }
-  .horizontal-words__arrow-svg { width: 14em; }
+  .horizontal-words__bottom-text-l {
+    font-size: 0.85rem;
+    line-height: 1.35;
+  }
 }
 
 /* ── Inner pages: hero / bands / work padding ── */
