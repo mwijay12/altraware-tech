@@ -57,6 +57,132 @@
     pointer-events: none;
 }
 
+/* ── Gradient + grid texture overlay (adds depth/"pro" feel on desktop) ── */
+.vimeo-hero__texture {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background-image:
+        radial-gradient(circle at 18% 20%, rgba(91, 156, 255, 0.28), transparent 45%),
+        radial-gradient(circle at 82% 78%, rgba(47, 123, 255, 0.22), transparent 50%),
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: auto, auto, 48px 48px, 48px 48px;
+    mix-blend-mode: screen;
+    opacity: 0.9;
+}
+
+/* ── Location chip, top-left ── */
+.vimeo-hero__location {
+    position: absolute;
+    top: 28px;
+    left: 44px;
+    z-index: 4;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 16px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: var(--color-white);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+}
+
+.vimeo-hero__location-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #5bffa0;
+    box-shadow: 0 0 0 0 rgba(91, 255, 160, 0.6);
+    animation: hero-location-pulse 2.2s ease-out infinite;
+}
+
+@keyframes hero-location-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(91, 255, 160, 0.55); }
+    70% { box-shadow: 0 0 0 7px rgba(91, 255, 160, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(91, 255, 160, 0); }
+}
+
+/* ── Feature chips + CTA buttons row, above the headline ── */
+.vimeo-hero__bottom-row {
+    position: absolute;
+    bottom: 64px;
+    left: 0;
+    right: 0;
+    padding: 0 44px;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+}
+
+.vimeo-hero__features {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    list-style: none;
+}
+
+.vimeo-hero__features li {
+    padding: 7px 16px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    color: var(--color-white);
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
+.vimeo-hero__cta-row {
+    display: flex;
+    gap: 14px;
+    pointer-events: auto;
+}
+
+.vimeo-hero__cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 28px;
+    border-radius: 999px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+    cursor: url("/assets/Cursor SVG/cursor-pointer.svg") 2 0, pointer;
+}
+
+.vimeo-hero__cta-btn--solid {
+    background: var(--color-white);
+    color: var(--color-dark);
+}
+
+.vimeo-hero__cta-btn--solid:hover {
+    transform: translateY(-2px);
+}
+
+.vimeo-hero__cta-btn--ghost {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--color-white);
+    border: 1.5px solid rgba(255, 255, 255, 0.4);
+}
+
+.vimeo-hero__cta-btn--ghost:hover {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.7);
+    transform: translateY(-2px);
+}
+
 /* ── Project-pic mousetrail (above fade, below headline) ── */
 .hero-trail {
     position: absolute;
@@ -90,7 +216,7 @@
 ───────────────────────────────────────────────── */
 .home-header__title {
     position: absolute;
-    bottom: 72px;
+    bottom: 200px;
     left: 0;
     right: 0;
     padding: 0 44px;

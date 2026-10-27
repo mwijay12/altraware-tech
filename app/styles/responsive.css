@@ -406,6 +406,13 @@
   .hero-trail { display: none; }
   .home-header__smiley { width: 0.9em; height: 0.9em; }
   .home-header__star { width: 0.7em; height: 0.7em; }
+  /* New desktop-polish hero elements: hidden on mobile to preserve the
+     existing, already-approved mobile hero layout untouched. */
+  .vimeo-hero__location,
+  .vimeo-hero__bottom-row,
+  .vimeo-hero__texture {
+    display: none;
+  }
 }
 
 /* ── Showreel title was fixed 5rem — overflows phones ── */

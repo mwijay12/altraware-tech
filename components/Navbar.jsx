@@ -38,9 +38,6 @@ export default function Navbar() {
 
     useEffect(() => {
         const navbar = document.querySelector('.navbar');
-        if (!navbar) return;
-
-        const footerEl = document.querySelector('.main-footer');
 
         // Initial state
         if (isHome) {
@@ -52,8 +49,16 @@ export default function Navbar() {
         }
 
         const updateNavbarColor = () => {
+            // Re-query every call: elements from layout.jsx (footer) and nested
+            // sections can mount a tick after this effect runs, so caching them
+            // once at mount time can silently freeze the color on 'on-dark' forever.
             if (!navbar) return;
+            const motionCardsSection = document.querySelector('.motion-cards-wrapper');
+            const footerEl = document.querySelector('.main-footer');
+            if (!motionCardsSection || !footerEl) return;
+
             const scrollPos = window.scrollY + navbar.offsetHeight / 2;
+            const contentTop = motionCardsSection.getBoundingClientRect().top + window.scrollY;
 
             if (!isHome) {
                 // On inner pages, stay on-light unless over footer

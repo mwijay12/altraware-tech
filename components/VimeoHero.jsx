@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { gsap } from 'gsap';
 import HeroTrail from '@/components/HeroTrail';
 import { useSiteContent } from '@/lib/site-content';
+import { CONTACT } from '@/lib/data';
 
 export default function VimeoHero() {
     const { hero } = useSiteContent();
@@ -40,6 +41,24 @@ export default function VimeoHero() {
                     { opacity: 1, scaleX: 1, xPercent: -50, yPercent: -50, duration: 0.8 },
                     '-=0.5'
                 )
+                .fromTo(
+                    '.vimeo-hero__location',
+                    { y: -16, opacity: 0 },
+                    { y: 0, opacity: 1, duration: 0.8 },
+                    '-=1.2'
+                )
+                .fromTo(
+                    '.vimeo-hero__cta-row .vimeo-hero__cta-btn',
+                    { y: 24, opacity: 0 },
+                    { y: 0, opacity: 1, duration: 0.8, stagger: 0.1 },
+                    '-=0.3'
+                )
+                .fromTo(
+                    '.vimeo-hero__features li',
+                    { y: 16, opacity: 0 },
+                    { y: 0, opacity: 1, duration: 0.6, stagger: 0.08 },
+                    '-=0.5'
+                );
         });
         return () => ctx.revert();
     }, []);
@@ -63,8 +82,17 @@ export default function VimeoHero() {
                     style={{ objectFit: 'cover', backgroundColor: '#0b2545' }}
                 />
 
+                {/* Gradient + grid texture overlay (desktop polish) */}
+                <div className="vimeo-hero__texture" aria-hidden="true" />
+
                 {/* Gradient fade */}
                 <div className="vimeo-hero__fade" />
+
+                {/* Location chip */}
+                <div className="vimeo-hero__location">
+                    <span className="vimeo-hero__location-dot" />
+                    Dar es Salaam · Tanzania
+                </div>
 
                 {/* Project-pic mousetrail */}
                 <HeroTrail />
@@ -118,6 +146,23 @@ export default function VimeoHero() {
                         ))}
 
                     </h1>
+                </div>
+
+                {/* ② Feature chips + CTA buttons (desktop polish) */}
+                <div className="vimeo-hero__bottom-row">
+                    <ul className="vimeo-hero__features">
+                        <li>M-Pesa ready</li>
+                        <li>Kiswahili &amp; English</li>
+                        <li>Offline-friendly</li>
+                    </ul>
+                    <div className="vimeo-hero__cta-row">
+                        <a href={CONTACT.whatsapp} target="_blank" rel="noopener noreferrer" className="vimeo-hero__cta-btn vimeo-hero__cta-btn--solid">
+                            Start a project
+                        </a>
+                        <a href="/work" className="vimeo-hero__cta-btn vimeo-hero__cta-btn--ghost">
+                            See our work
+                        </a>
+                    </div>
                 </div>
 
                 {/* Loading spinner removed because native HTML video loads silently in background */}

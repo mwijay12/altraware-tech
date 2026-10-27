@@ -9,6 +9,7 @@ import Showreel from '@/components/Showreel';
 import DoubleMarquee from '@/components/DoubleMarquee';
 import TransitionScribble from '@/components/TransitionScribble';
 import SmoothScroll from '@/components/SmoothScroll';
+import CtaBand from '@/components/CtaBand';
 
 import HorizontalWords from '@/components/HorizontalWords';
 
@@ -34,6 +35,7 @@ export default function Home() {
             <section className="Double-marquee">
                 <DoubleMarquee />
             </section>
+            <CtaBand />
             <TransitionScribble />
         </>
     );

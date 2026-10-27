@@ -19,6 +19,8 @@
 /* Double marquee section + animations      */
 @import './styles/footer.css';
 /* Footer layout, credits, stickers         */
+@import './styles/cta-band.css';
+/* Closing CTA band before footer           */
 @import './styles/vimeo-hero.css';
 /* Vimeo hero video player + headline       */
 @import './styles/cursor.css';

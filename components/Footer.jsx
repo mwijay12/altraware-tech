@@ -132,7 +132,7 @@ export default function Footer() {
                 const speed = Math.hypot(dx, dy);
 
                 // Disable proximity push if the mouse is hovering over the open credits popup box
-                const isOverCreditsBox = e.target.closest('.credits-box') !== null;
+                const isOverCreditsBox = !!(e.target && typeof e.target.closest === 'function' && e.target.closest('.credits-box'));
 
                 if (!onSticker && !isOverCreditsBox && dist < PROXIMITY_RADIUS && speed > MIN_SPEED) {
                     const falloff = 1 - (dist / PROXIMITY_RADIUS);
