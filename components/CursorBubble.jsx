@@ -1,0 +1,68 @@
+'use client';
+
+import { useEffect } from 'react';
+import { gsap } from 'gsap';
+
+export default function CursorBubble() {
+    useEffect(() => {
+        if (typeof window === 'undefined' || !window.matchMedia('(hover: hover)').matches) return;
+
+        const cursorBubble = document.querySelector('.cursor-bubble');
+        if (!cursorBubble) return;
+
+        const xTo = gsap.quickTo(cursorBubble, 'x', { duration: 0.5, ease: 'power3' });
+        const yTo = gsap.quickTo(cursorBubble, 'y', { duration: 0.5, ease: 'power3' });
+
+        let isHoveringClickable = false;
+        gsap.set(cursorBubble, { rotation: -30 });
+
+        const onMouseMove = (e) => {
+            xTo(e.clientX + 13);
+            yTo(e.clientY - 43);
+        };
+
+        const onMouseOver = (e) => {
+            const targetSelector = '.footer-column h3, .footer-map-link span, .footer-email, .footer-whatsapp, .single-social, .logo-truus, .nav-work-btn, .footer-pages a, .inner-nav a, .nav-work-item, .card-action-hint, .contact-card a, .abtn';
+            const found = e.target.closest(targetSelector);
+
+            if (found) {
+                let label = 'click';
+                if (found.matches('.logo-truus, .inner-nav__logo')) label = 'to home';
+                else if (found.matches('.card-action-hint')) label = 'chat';
+                else if (found.matches('.footer-pages a, .inner-nav a')) label = 'click';
+
+                cursorBubble.textContent = label;
+
+                if (!isHoveringClickable) {
+                    isHoveringClickable = true;
+                    gsap.killTweensOf(cursorBubble, 'opacity,scale,rotation');
+                    gsap.to(cursorBubble, { opacity: 1, scale: 1, rotation: 0, duration: 1.7, delay: 0.05, ease: 'elastic.out(1, 0.4)' });
+                }
+            } else if (!found && isHoveringClickable) {
+                isHoveringClickable = false;
+                gsap.killTweensOf(cursorBubble, 'opacity,scale,rotation');
+                gsap.to(cursorBubble, { opacity: 1, scale: 0, rotation: -30, duration: 0.3, ease: 'sine.inOut' });
+            }
+        };
+
+        const onMouseLeave = () => {
+            if (isHoveringClickable) {
+                isHoveringClickable = false;
+                gsap.killTweensOf(cursorBubble, 'opacity,scale,rotation');
+                gsap.to(cursorBubble, { opacity: 1, scale: 0, rotation: -30, duration: 0.3, ease: 'sine.inOut' });
+            }
+        };
+
+        window.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseover', onMouseOver);
+        document.addEventListener('mouseleave', onMouseLeave);
+
+        return () => {
+            window.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseover', onMouseOver);
+            document.removeEventListener('mouseleave', onMouseLeave);
+        };
+    }, []);
+
+    return <div className="cursor-bubble">click</div>;
+}

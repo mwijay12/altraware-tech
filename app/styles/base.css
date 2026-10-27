@@ -1,0 +1,334 @@
+/* ─── Fonts ─────────────────────────────────────────────────────────────────── */
+@font-face {
+    font-family: 'DM Sans';
+    src: url('/fonts/DMSans-VariableFont_opsz,wght.ttf') format('truetype');
+    font-weight: 100 900;
+}
+
+@font-face {
+    font-family: 'Epilogue';
+    src: url('/fonts/Epilogue-VariableFont_wght.ttf') format('truetype');
+    font-weight: 100 900;
+}
+
+/* ─── Design Tokens ─────────────────────────────────────────────────────────── */
+/* Altraware Technologies: white + blue direction, trustworthy and practical. */
+:root {
+    --color-green: #0a3d91;
+    --color-lightblue: #5b9cff;
+    --color-darkblue: #123b8f;
+    --color-lightgreen: #e8f1ff;
+    --color-orange: #2f7bff;
+    --color-maroon: #0b2545;
+    --color-pink: #bfd7ff;
+    --bg-color: #ffffff;
+    --color-white: #ffffff;
+    --color-black: #000000;
+    --color-dark: #0b2545;
+    --color-black-soft: #111111;
+    --color-black-deep: #0a0a0a;
+}
+
+/* ─── Reset ─────────────────────────────────────────────────────────────────── */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+::selection {
+    background-color: var(--color-pink);
+    color: var(--color-black);
+}
+
+/* Prevent selection on non-text elements */
+img,
+svg,
+video,
+canvas,
+audio,
+iframe,
+embed,
+object {
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+/* ─── Base Elements ──────────────────────────────────────────────────────────── */
+body {
+    background-color: var(--bg-color);
+    font-family: 'Epilogue', sans-serif;
+    color: var(--color-dark);
+    overflow-x: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    cursor: url("/assets/Cursor SVG/cursor-default.svg") 2 0, auto;
+}
+
+html {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    display: none;
+}
+
+/* ============ PAGE TRANSITION (Bespoke Altraware Tech Slats Sweep) ============ */
+.page-transition-wrap {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.page-transition-wrap.active {
+    pointer-events: all;
+}
+
+.curtain-layer {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+}
+
+.curtain-layer-accent {
+    z-index: 100001;
+}
+
+.curtain-layer-navy {
+    z-index: 100002;
+}
+
+.curtain-col {
+    height: 100%;
+    flex: 1;
+    will-change: transform;
+}
+
+/* Electric cobalt blue leading wave */
+.curtain-col-accent {
+    background: linear-gradient(180deg, #2f7bff 0%, #123b8f 100%);
+    transform-origin: bottom;
+}
+
+/* Deep obsidian navy foundation */
+.curtain-col-navy {
+    background: #07172e;
+    transform-origin: bottom;
+}
+
+/* Center card showcase — styled like the site's tactile badge system */
+.transition-center {
+    position: absolute;
+    inset: 0;
+    z-index: 100003;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    padding: 20px;
+}
+
+.transition-card {
+    background: #091a33;
+    border: 2px solid rgba(91, 156, 255, 0.45);
+    border-radius: 28px 28px 28px 4px;
+    padding: 28px 38px 26px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.65), 0 0 45px rgba(47, 123, 255, 0.3);
+    max-width: 90vw;
+    text-align: center;
+    will-change: transform, opacity;
+}
+
+.transition-top-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(91, 156, 255, 0.3);
+    border-radius: 9999px;
+}
+
+.transition-pulse-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #00f2fe;
+    box-shadow: 0 0 10px #00f2fe;
+    animation: techPulse 1.2s ease-in-out infinite;
+}
+
+.transition-tag-text {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 2px;
+    color: #5b9cff;
+    text-transform: uppercase;
+}
+
+.transition-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.transition-logo-word {
+    font-family: 'Epilogue', Arial, sans-serif;
+    font-weight: 900;
+    font-size: clamp(1.6rem, 4.5vw, 2.5rem);
+    letter-spacing: -0.5px;
+    color: #ffffff;
+    line-height: 1;
+}
+
+.transition-dest-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.transition-dest-wrap::before {
+    content: '→';
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 900;
+    color: #5b9cff;
+    font-size: clamp(1.4rem, 4vw, 2rem);
+}
+
+.transition-dest-title {
+    font-family: 'Epilogue', Arial, sans-serif;
+    font-weight: 900;
+    font-size: clamp(1.6rem, 4.5vw, 2.5rem);
+    letter-spacing: -0.5px;
+    color: #5b9cff;
+    line-height: 1;
+}
+
+.transition-foot {
+    margin-top: 2px;
+}
+
+.transition-kicker-text {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.72);
+    letter-spacing: -0.2px;
+}
+
+/* ─── High-Tech Shutter Transition (replaces laggy scribble) ─── */
+.tech-transition {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.tech-transition__blade {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.tech-transition__blade--1 {
+    background: #061224;
+    z-index: 1;
+}
+
+.tech-transition__blade--2 {
+    background: #0b2545;
+    z-index: 2;
+}
+
+.tech-transition__blade--3 {
+    background: #123b8f;
+    z-index: 3;
+}
+
+.tech-transition__blade--4 {
+    background: #2f7bff;
+    z-index: 4;
+}
+
+.tech-transition__center {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.tech-transition__line {
+    width: min(420px, 80vw);
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #00f2fe, #fff, #00f2fe, transparent);
+    margin-bottom: 1.5rem;
+    box-shadow: 0 0 20px #00f2fe;
+}
+
+.tech-transition__badge {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 1.4rem;
+    background: rgba(6, 18, 36, 0.85);
+    border: 1px solid rgba(0, 242, 254, 0.4);
+    border-radius: 9999px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 242, 254, 0.2);
+}
+
+.tech-transition__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #00f2fe;
+    box-shadow: 0 0 10px #00f2fe;
+    animation: techPulse 1.5s infinite;
+}
+
+.tech-transition__name {
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 900;
+    font-size: 1.15rem;
+    letter-spacing: 2px;
+    color: #ffffff;
+}
+
+.tech-transition__tag {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: #00f2fe;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: rgba(0, 242, 254, 0.12);
+}
+
+@keyframes techPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+}
