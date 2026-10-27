@@ -6,6 +6,10 @@
 .pnp.*
 .yarn/*
 !.yarn/patches
+<<<<<<< HEAD
+=======
+!.yarn/plugins
+>>>>>>> aeb0fed (Rise at Seven website is fully cloned)
 !.yarn/releases
 !.yarn/versions
 
@@ -22,13 +26,20 @@
 # misc
 .DS_Store
 *.pem
+<<<<<<< HEAD
 Thumbs.db
+=======
+>>>>>>> aeb0fed (Rise at Seven website is fully cloned)
 
 # debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+<<<<<<< HEAD
 dev-server.log
+=======
+.pnpm-debug.log*
+>>>>>>> aeb0fed (Rise at Seven website is fully cloned)
 
 # env files (can opt-in for committing if needed)
 .env*

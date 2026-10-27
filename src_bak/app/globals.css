@@ -1,0 +1,167 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: "saans", sans-serif;
+  --font-serif: Georgia, serif;
+
+  --color-grey-100: #f5f5f5;
+  --color-grey-200: #e5e5e5;
+  --color-grey-300: #d4d4d4;
+  --color-grey-400: #a3a3a3;
+  --color-grey-500: #737373;
+  --color-grey-600: #525252;
+  --color-grey-700: #404040;
+  --color-grey-800: #262626;
+  --color-grey-900: #171717;
+
+  --color-mint: #b2f6e3;
+  --color-mint-light: #d8f894;
+  --color-mint-dark: #a8e03e;
+
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-5: 1.25rem;
+  --spacing-6: 1.5rem;
+  --spacing-8: 2rem;
+  --spacing-10: 2.5rem;
+  --spacing-12: 3rem;
+  --spacing-16: 4rem;
+}
+
+@font-face {
+  font-family: "saans";
+  src: url("/fonts/SaansLight.eot");
+  src: local("saans"),
+    url("/fonts/SaansLight.eot?#iefix") format("embedded-opentype"),
+    url("/fonts/SaansLight.woff2") format("woff2"),
+    url("/fonts/SaansLight.woff") format("woff"),
+    url("/fonts/SaansLight.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "saans";
+  src: url("/fonts/SaansRegular.eot");
+  src: local("saans"),
+    url("/fonts/SaansRegular.eot?#iefix") format("embedded-opentype"),
+    url("/fonts/SaansRegular.woff2") format("woff2"),
+    url("/fonts/SaansRegular.woff") format("woff"),
+    url("/fonts/SaansRegular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "saans";
+  src: url("/fonts/SaansMedium.eot");
+  src: local("saans"),
+    url("/fonts/SaansMedium.eot?#iefix") format("embedded-opentype"),
+    url("/fonts/SaansMedium.woff2") format("woff2"),
+    url("/fonts/SaansMedium.woff") format("woff"),
+    url("/fonts/SaansMedium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "saans";
+  src: url("/fonts/SaansSemiBold.eot");
+  src: local("saans"),
+    url("/fonts/SaansSemiBold.eot?#iefix") format("embedded-opentype"),
+    url("/fonts/SaansSemiBold.woff2") format("woff2"),
+    url("/fonts/SaansSemiBold.woff") format("woff"),
+    url("/fonts/SaansSemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "saans";
+  src: url("/fonts/SaansBold.eot");
+  src: local("saans"),
+    url("/fonts/SaansBold.eot?#iefix") format("embedded-opentype"),
+    url("/fonts/SaansBold.woff2") format("woff2"),
+    url("/fonts/SaansBold.woff") format("woff"),
+    url("/fonts/SaansBold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --vh: 1vh;
+  --mask-colour: #b2f6e3;
+}
+
+html {
+  font-family: "saans", sans-serif;
+  scroll-behavior: smooth;
+  background-color: #EFEEEC;
+}
+
+body {
+  background-color: #EFEEEC;
+  color: var(--color-grey-900);
+  font-family: "saans", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.hide-cursor,
+.hide-cursor * {
+  cursor: none !important;
+}
+
+[x-cloak] {
+  display: none !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "saans", sans-serif;
+}
+
+.tracking-tightish {
+  letter-spacing: -0.01em;
+}
+
+.transition-rounded {
+  transition-property: border-radius;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.h-screen-fix {
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.swiper-wrapper {
+  transition-timing-function: linear !important;
+}
