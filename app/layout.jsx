@@ -1,4 +1,5 @@
 import './globals.css';
+import './styles/pro.css';
 import PageWipe from '@/components/PageWipe';
 import RevealAnims from '@/components/RevealAnims';
 import KineticMenu from '@/components/KineticMenu';

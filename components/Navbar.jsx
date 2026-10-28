@@ -53,12 +53,9 @@ export default function Navbar() {
             // sections can mount a tick after this effect runs, so caching them
             // once at mount time can silently freeze the color on 'on-dark' forever.
             if (!navbar) return;
-            const motionCardsSection = document.querySelector('.motion-cards-wrapper');
             const footerEl = document.querySelector('.main-footer');
-            if (!motionCardsSection || !footerEl) return;
 
             const scrollPos = window.scrollY + navbar.offsetHeight / 2;
-            const contentTop = motionCardsSection.getBoundingClientRect().top + window.scrollY;
 
             if (!isHome) {
                 // On inner pages, stay on-light unless over footer
@@ -71,31 +68,18 @@ export default function Navbar() {
                 return;
             }
 
-            // Homepage logic
-            const contentSection = document.querySelector('.content-section');
-            if (!contentSection || !footerEl) return;
-
-            const contentTop = contentSection.getBoundingClientRect().top + window.scrollY;
-            const showreelSection = document.querySelector('#showreel-section');
-            const showreelTop = showreelSection ? showreelSection.getBoundingClientRect().top + window.scrollY : Infinity;
-            const serviceCardsSection = document.querySelector('.service-cards-wrapper');
-            const serviceCardsTop = serviceCardsSection ? serviceCardsSection.getBoundingClientRect().top + window.scrollY : Infinity;
-            const doubleMarquee = document.querySelector('.Double-marquee');
-            const doubleMarqueeTop = doubleMarquee ? doubleMarquee.getBoundingClientRect().top + window.scrollY : Infinity;
-            const footerTop = footerEl.getBoundingClientRect().top + window.scrollY;
+            // Homepage logic: white nav over the dark hero, dark ink over the
+            // paper sections, white again once the navy footer starts.
+            const hero = document.querySelector('#home-hero');
+            const heroBottom = hero ? hero.getBoundingClientRect().top + window.scrollY + hero.offsetHeight : 0;
+            const footerTop = footerEl ? footerEl.getBoundingClientRect().top + window.scrollY : Infinity;
 
             if (scrollPos >= footerTop) {
                 navbar.classList.add('on-dark'); navbar.classList.remove('on-light');
-            } else if (scrollPos >= doubleMarqueeTop) {
-                navbar.classList.add('on-light'); navbar.classList.remove('on-dark');
-            } else if (scrollPos >= serviceCardsTop) {
-                navbar.classList.add('on-light'); navbar.classList.remove('on-dark');
-            } else if (scrollPos >= showreelTop) {
+            } else if (scrollPos < heroBottom - navbar.offsetHeight) {
                 navbar.classList.add('on-dark'); navbar.classList.remove('on-light');
-            } else if (scrollPos >= contentTop) {
-                navbar.classList.add('on-light'); navbar.classList.remove('on-dark');
             } else {
-                navbar.classList.add('on-dark'); navbar.classList.remove('on-light');
+                navbar.classList.add('on-light'); navbar.classList.remove('on-dark');
             }
         };
 
