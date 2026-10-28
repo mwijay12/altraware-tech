@@ -1199,3 +1199,28 @@ textarea.field {
     opacity: 0;
   }
 }
+
+/* ─── Base-layer resets (stand-in for Tailwind preflight) ───────────────────
+   Kept in the base layer so Tailwind utilities always win, and unlayered
+   site styles from globals.css keep overriding where they already do. */
+@layer base {
+  img,
+  svg {
+    display: block;
+  }
+  ul,
+  ol {
+    list-style: none;
+  }
+  a {
+    color: inherit;
+    text-decoration: inherit;
+  }
+  button {
+    background: none;
+    border: 0;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+  }
+}
