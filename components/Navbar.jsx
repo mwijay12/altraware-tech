@@ -55,10 +55,9 @@ export default function Navbar() {
             if (!navbar) return;
             const motionCardsSection = document.querySelector('.motion-cards-wrapper');
             const footerEl = document.querySelector('.main-footer');
-            if (!motionCardsSection || !footerEl) return;
+            if (!footerEl) return;
 
             const scrollPos = window.scrollY + navbar.offsetHeight / 2;
-            const contentTop = motionCardsSection.getBoundingClientRect().top + window.scrollY;
 
             if (!isHome) {
                 // On inner pages, stay on-light unless over footer
