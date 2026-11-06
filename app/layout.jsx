@@ -10,9 +10,18 @@ export const viewport = {
     themeColor: '#111111',
 };
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://altraware-tech.vercel.app';
+
+const DESCRIPTION =
+    'Altraware Technologies builds websites, web and mobile apps, and business systems for small businesses, schools, clinics, care centres and NGOs in Tanzania. Based in Dar es Salaam. Built with data privacy in mind.';
+
 export const metadata = {
-    title: 'Altraware Technologies — Websites, Apps & Systems in Tanzania',
-    description: 'Altraware Technologies builds websites, web and mobile apps, and business systems for small businesses, schools, clinics, care centres and NGOs in Tanzania. Based in Dar es Salaam. Built with data privacy in mind.',
+    metadataBase: new URL(SITE_URL),
+    title: {
+        default: 'Altraware Technologies — Websites, Apps & Systems in Tanzania',
+        template: '%s',
+    },
+    description: DESCRIPTION,
     manifest: '/manifest.json',
     appleWebApp: {
         capable: true,
@@ -20,8 +29,22 @@ export const metadata = {
         title: 'Altraware',
     },
     icons: {
-        icon: '/favicon.png',
-        apple: '/favicon.png',
+        icon: [{ url: '/favicon.png', sizes: '32x32', type: 'image/png' }],
+        apple: [{ url: '/apple-touch-icon.png', sizes: '180x180' }],
+    },
+    openGraph: {
+        type: 'website',
+        siteName: 'Altraware Technologies',
+        title: 'Altraware Technologies — Websites, Apps & Systems in Tanzania',
+        description: DESCRIPTION,
+        url: '/',
+        images: [{ url: '/icon-512.png', width: 512, height: 512, alt: 'Altraware Technologies' }],
+    },
+    twitter: {
+        card: 'summary',
+        title: 'Altraware Technologies — Websites, Apps & Systems in Tanzania',
+        description: DESCRIPTION,
+        images: ['/icon-512.png'],
     },
 };
 

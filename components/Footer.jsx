@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -211,14 +212,14 @@ export default function Footer() {
                 <div className="footer-column">
                     <span className="footer-badge">pages</span>
                     <nav className="footer-pages" aria-label="Site">
-                        <a href="/" onClick={(e) => onNav(e, '/', 'Home')}>Home</a>
-                        <a href="/about" onClick={(e) => onNav(e, '/about', 'About')}>About</a>
-                        <a href="/services" onClick={(e) => onNav(e, '/services', 'Services')}>Services</a>
-                        <a href="/platforms" onClick={(e) => onNav(e, '/platforms', 'Platforms')}>Platforms</a>
-                        <a href="/work" onClick={(e) => onNav(e, '/work', 'Work')}>Work</a>
-                        <a href="/pricing" onClick={(e) => onNav(e, '/pricing', 'Pricing')}>Pricing</a>
-                        <a href="/process" onClick={(e) => onNav(e, '/process', 'Process')}>Process</a>
-                        <a href="/contact" onClick={(e) => onNav(e, '/contact', 'Contact')}>Contact</a>
+                        <Link href="/" onClick={(e) => onNav(e, '/', 'Home')}>Home</Link>
+                        <Link href="/about" onClick={(e) => onNav(e, '/about', 'About')}>About</Link>
+                        <Link href="/services" onClick={(e) => onNav(e, '/services', 'Services')}>Services</Link>
+                        <Link href="/platforms" onClick={(e) => onNav(e, '/platforms', 'Platforms')}>Platforms</Link>
+                        <Link href="/work" onClick={(e) => onNav(e, '/work', 'Work')}>Work</Link>
+                        <Link href="/pricing" onClick={(e) => onNav(e, '/pricing', 'Pricing')}>Pricing</Link>
+                        <Link href="/process" onClick={(e) => onNav(e, '/process', 'Process')}>Process</Link>
+                        <Link href="/contact" onClick={(e) => onNav(e, '/contact', 'Contact')}>Contact</Link>
                     </nav>
                 </div>
             </div>

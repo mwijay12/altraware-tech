@@ -42,10 +42,13 @@ export default function FirebaseAuth({ onAuthed }) {
                 setError('No email address returned from Google account.');
                 return;
             }
+            // Send the signed Firebase ID token — the server verifies it with
+            // Google before trusting the email inside it.
+            const idToken = await result.user.getIdToken();
             const res = await fetch('/api/admin/session', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ googleEmail: email }),
+                body: JSON.stringify({ idToken }),
             });
             const data = await res.json().catch(() => ({}));
             if (!res.ok) {
