@@ -40,7 +40,39 @@ npm run lint    # lint
 
 ## Configuration
 
-The Firebase client and the contact endpoint read configuration at runtime. Copy the values used in `lib/` into your own environment before running against a different Firebase project — do not commit real keys.
+Copy `.env.example` to `.env.local` and fill in what you need — every feature
+degrades gracefully when its variables are blank:
+
+```bash
+cp .env.example .env.local
+```
+
+| Feature | Variables |
+|---|---|
+| Admin login | `ADMIN_EMAILS`, `ADMIN_MASTER_KEY`, `ADMIN_SESSION_SECRET` |
+| Google sign-in | `NEXT_PUBLIC_FIREBASE_*`, `FIREBASE_API_KEY` |
+| Inquiry email | `SMTP_*`, `ADMIN_NOTIFICATION_EMAIL` |
+| AI assistant | `INCEPTION_API_KEYS`, `AGNES_API_KEYS` |
+| Canonical URL | `NEXT_PUBLIC_SITE_URL` |
+
+Never commit real keys — `.env*` is git-ignored.
+
+### Admin access
+
+`/admin` accepts either an allowed Google account or `ADMIN_MASTER_KEY`.
+
+Google sign-in sends a Firebase ID token, which the server verifies with Google
+before trusting the email inside it. The session cookie is HMAC-signed with
+`ADMIN_SESSION_SECRET`; edit the cookie and the session is rejected.
+
+Set `ADMIN_SESSION_SECRET` to a random value in production:
+
+```bash
+openssl rand -hex 32
+```
+
+Note: admin edits are stored in the browser's `localStorage`, so they apply to
+that browser only and are not shared with visitors or other devices.
 
 ## Deployment
 

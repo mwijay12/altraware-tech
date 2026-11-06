@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { CONTACT } from '@/lib/data';
 
 const TYPES = ['Website', 'Web / Mobile App', 'Faida POS', 'CareTrack', 'School System', 'Support Plan', 'Something else'];
 
@@ -24,12 +25,20 @@ export default function InquiryForm() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(form),
             });
-            const data = await res.json();
-            if (!res.ok) throw new Error(data.error || 'Failed to send.');
+            const data = await res.json().catch(() => ({}));
+            if (!res.ok) {
+                // Keep what the visitor typed — never clear a form on failure.
+                setState({ sending: false, done: null, error: data.error || 'Failed to send.' });
+                return;
+            }
             setState({ sending: false, done: data, error: '' });
             setForm({ name: '', phone: '', email: '', type: 'Website', message: '' });
-        } catch (err) {
-            setState({ sending: false, done: null, error: err.message });
+        } catch {
+            setState({
+                sending: false,
+                done: null,
+                error: `Network problem — your message was not sent. Please WhatsApp us on ${CONTACT.phonePrimary}.`,
+            });
         }
     };
 
@@ -76,7 +85,21 @@ export default function InquiryForm() {
                 <span>About your project</span>
                 <textarea value={form.message} rows={4} onChange={(e) => set('message', e.target.value)} placeholder="I run a shop in Kariakoo and I need…" />
             </label>
-            {state.error && <p style={{ color: '#a0325a', fontWeight: 700 }}>{state.error}</p>}
+            {state.error && (
+                <div style={{ marginTop: '1rem' }}>
+                    <p style={{ color: '#a0325a', fontWeight: 700 }}>{state.error}</p>
+                    <p style={{ marginTop: '0.5rem' }}>
+                        <a
+                            href={CONTACT.whatsapp}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="abtn abtn--pop"
+                        >
+                            WhatsApp {CONTACT.phonePrimary}
+                        </a>
+                    </p>
+                </div>
+            )}
             <button className="abtn abtn--pop" type="submit" disabled={state.sending} style={{ marginTop: '1rem' }}>
                 {state.sending ? 'Sending…' : 'Send brief'}
             </button>

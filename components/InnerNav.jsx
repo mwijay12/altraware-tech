@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { goWithWipe } from './wipe';
 
@@ -24,19 +25,19 @@ export default function InnerNav() {
 
     return (
         <nav className="inner-nav" aria-label="Pages">
-            <a
+            <Link
                 href="/"
                 className="inner-nav__logo"
                 onClick={(e) => onNav(e, '/', 'Home')}
             >
                 <img src="/assets/altraware/logo.png" alt="Altraware logo" />
                 <span>ALTRAWARE</span>
-            </a>
+            </Link>
             <div className="inner-nav__links">
                 {LINKS.map((l) => (
-                    <a key={l.href} href={l.href} onClick={(e) => onNav(e, l.href, l.label)}>
+                    <Link key={l.href} href={l.href} onClick={(e) => onNav(e, l.href, l.label)}>
                         {l.label}
-                    </a>
+                    </Link>
                 ))}
                 <button
                     className="inner-nav__menu-btn"
