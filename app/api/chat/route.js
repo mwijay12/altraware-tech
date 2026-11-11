@@ -1,4 +1,10 @@
 import { NextResponse } from 'next/server';
+import { clientIp, rateLimit } from '@/lib/admin-auth';
+
+// Public endpoint backed by paid API keys — cap usage per connection.
+const MAX_MESSAGES = 20;
+const WINDOW_MS = 10 * 60 * 1000;
+const MAX_MESSAGE_CHARS = 1200;
 
 const SYSTEM_PROMPT = `You are "Altra", the friendly AI assistant for Altraware Technology Ltd, a software company based in Dar es Salaam, Tanzania. Answer briefly, plainly and helpfully in English.
 
@@ -46,22 +52,43 @@ async function callChat(url, model, messages, key, extra, timeoutMs) {
 }
 
 export async function POST(req) {
+    const limit = rateLimit(`chat:${clientIp(req)}`, { max: MAX_MESSAGES, windowMs: WINDOW_MS });
+    if (!limit.ok) {
+        return NextResponse.json(
+            {
+                reply:
+                    'You have asked a lot of questions in a short time. For a fast human reply, WhatsApp us on +255 792 867 427!',
+                provider: 'rate-limited',
+            },
+            { status: 429, headers: { 'Retry-After': String(limit.retryAfter) } }
+        );
+    }
+
     try {
         const body = await req.json();
         const { message, history } = body;
         if (!message || typeof message !== 'string') {
             return NextResponse.json({ error: 'Message is required' }, { status: 400 });
         }
+        if (message.length > MAX_MESSAGE_CHARS) {
+            return NextResponse.json(
+                { error: `Please keep questions under ${MAX_MESSAGE_CHARS} characters.` },
+                { status: 413 }
+            );
+        }
 
         const messages = [{ role: 'system', content: SYSTEM_PROMPT }];
         if (Array.isArray(history)) {
             for (const h of history.slice(-6)) {
                 if (h.text && (h.from === 'user' || h.from === 'ai')) {
-                    messages.push({ role: h.from === 'user' ? 'user' : 'assistant', content: h.text });
+                    messages.push({
+                        role: h.from === 'user' ? 'user' : 'assistant',
+                        content: String(h.text).slice(0, MAX_MESSAGE_CHARS),
+                    });
                 }
             }
         }
-        messages.push({ role: 'user', content: message });
+        messages.push({ role: 'user', content: message.slice(0, MAX_MESSAGE_CHARS) });
 
         const inceptionKeys = keysFromEnv(process.env.INCEPTION_API_KEYS, process.env.INCEPTION_API_KEY);
         for (const key of [...inceptionKeys].sort(() => Math.random() - 0.5)) {

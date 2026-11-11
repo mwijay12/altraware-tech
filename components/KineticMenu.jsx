@@ -63,10 +63,11 @@ export default function KineticMenu() {
 
     // Shape hover play.
     useEffect(() => {
-        if (!containerRef.current) return;
+        const container = containerRef.current;
+        if (!container) return;
         const ctx = gsap.context(() => {
-            const menuItems = containerRef.current.querySelectorAll('.km-item[data-shape]');
-            const shapesBox = containerRef.current.querySelector('.km-shapes');
+            const menuItems = container.querySelectorAll('.km-item[data-shape]');
+            const shapesBox = container.querySelector('.km-shapes');
             menuItems.forEach((item) => {
                 const shape = shapesBox
                     ? shapesBox.querySelector(`.km-shape-${item.getAttribute('data-shape')}`)
@@ -102,11 +103,9 @@ export default function KineticMenu() {
         }, containerRef);
         return () => {
             ctx.revert();
-            if (containerRef.current) {
-                containerRef.current
-                    .querySelectorAll('.km-item[data-shape]')
-                    .forEach((item) => item._kmCleanup && item._kmCleanup());
-            }
+            container
+                .querySelectorAll('.km-item[data-shape]')
+                .forEach((item) => item._kmCleanup && item._kmCleanup());
         };
     }, []);
 
