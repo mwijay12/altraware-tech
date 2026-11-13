@@ -11,6 +11,7 @@ export default function ServiceCards() {
   const waBase = (contact && contact.whatsapp) || CONTACT.whatsapp;
 
   useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     gsap.registerPlugin(ScrollTrigger);
 
     // Underline draw on scroll

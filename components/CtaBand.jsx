@@ -7,6 +7,7 @@ import { CONTACT } from '@/lib/data';
 
 export default function CtaBand() {
     useEffect(() => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         gsap.registerPlugin(ScrollTrigger);
 
         const tl = gsap.timeline({
