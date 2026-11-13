@@ -59,7 +59,7 @@ export default function ServicesPage() {
     return (
         <>
             <Navbar />
-            <header className="pg-hero pg-hero--blue">
+            <header className="pg-hero pg-hero--blue pg-hero--services">
                 <div className="pg-hero__inner">
                     <span className="pg-hero__badge">Services · what we build</span>
                     <h1 className="pg-hero__title">Three crafts. <em>One standard.</em></h1>
