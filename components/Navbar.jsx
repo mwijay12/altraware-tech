@@ -334,6 +334,7 @@ export default function Navbar() {
             <div className="nav-overlay"></div>
             <nav className="navbar">
                 <div className="nav-left">
+                    <a href="/work" className="nav-mobile-work" onClick={(e) => onNav(e, '/work', 'Work')}>Work</a>
                     <div className="nav-hover-trigger">
                         <div className="logo-work-container">
                             <img src="/assets/Navbar SVG/nav-work-blob.svg" width="60" height="55" className="nav-bar__work-blob-svg" alt="" aria-hidden="true" />
@@ -373,9 +374,9 @@ export default function Navbar() {
                         </div>
                     </div>
                 </div>
-                <div className="nav-center" onClick={(e) => onNav(e, '/', 'Home')} style={{ cursor: 'pointer' }}>
+                <a href="/" className="nav-center" onClick={(e) => onNav(e, '/', 'Home')} aria-label="Altraware home">
                     <span className="logo-truus logo-altraware" data-wiggle-target="true">ALTRAWARE</span>
-                </div>
+                </a>
                 <div className="nav-right">
                     <button
                         className="nav-menu-btn"
@@ -387,6 +388,7 @@ export default function Navbar() {
                             <i /><i /><i />
                         </span>
                     </button>
+                    <a className="nav-mobile-whatsapp" href={contact.whatsapp} target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">Chat</a>
                     <div className="nav-hover-trigger">
                         <div className="logo-whatsapp">
                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 25 27" fill="none" className="nav-bar__whatsapp-svg">

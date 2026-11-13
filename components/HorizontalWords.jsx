@@ -11,6 +11,10 @@ const HorizontalWords = () => {
     const sectionRef = useRef(null);
 
     useEffect(() => {
+        // Only pin the horizontal animation on larger screens with motion enabled.
+        // matchMedia also cleans up the pin if the viewport changes size.
+        const mm = gsap.matchMedia();
+        mm.add('(min-width: 769px) and (prefers-reduced-motion: no-preference)', () => {
         const ctx = gsap.context(() => {
             const container = sectionRef.current;
             const textRef = container.querySelector('.horizontal-words__relative');
@@ -124,6 +128,8 @@ const HorizontalWords = () => {
         }, sectionRef);
 
         return () => ctx.revert();
+        });
+        return () => mm.revert();
     }, []);
 
     return (

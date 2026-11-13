@@ -7,7 +7,7 @@ import { useSiteContent } from '@/lib/site-content';
 import { CONTACT } from '@/lib/data';
 
 export default function VimeoHero() {
-    const { hero } = useSiteContent();
+    const { hero, contact } = useSiteContent();
     const lineA = (hero.lineA || '').split(' ').filter(Boolean);
     const lineB = (hero.lineB || '').split(' ').filter(Boolean);
     const lineC = (hero.lineC || '').split(' ').filter(Boolean);
@@ -16,6 +16,7 @@ export default function VimeoHero() {
 
     /* ─── Entrance: headline words rise, decorations pop ─── */
     useEffect(() => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         const ctx = gsap.context(() => {
             const tl = gsap.timeline({ defaults: { ease: 'expo.out' }, delay: 0.15 });
             tl.fromTo(
@@ -67,21 +68,6 @@ export default function VimeoHero() {
         <>
             {/* ── Main hero container ── */}
             <div className="vimeo-hero">
-                {/* 
-                  Video Placeholder: 
-                  Currently left blank to display a solid black background while you work on text, SVGs, and the navbar.
-                  Once you have your personal video file in the `public/` folder, uncomment and update the src below!
-                */}
-                <video
-                    // src="/your-personal-video.mp4"
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    className="vimeo-hero__iframe"
-                    style={{ objectFit: 'cover', backgroundColor: '#0b2545' }}
-                />
-
                 {/* Gradient + grid texture overlay (desktop polish) */}
                 <div className="vimeo-hero__texture" aria-hidden="true" />
 
@@ -148,7 +134,12 @@ export default function VimeoHero() {
                     </h1>
                 </div>
 
-                {/* ② Feature chips + CTA buttons (desktop polish) */}
+                <p className="vimeo-hero__intro">
+                    Practical digital tools for shops, schools, clinics and growing organisations.
+                    Designed for the way you work, with support after launch.
+                </p>
+
+                {/* Feature chips and clear next steps */}
                 <div className="vimeo-hero__bottom-row">
                     <ul className="vimeo-hero__features">
                         <li>M-Pesa ready</li>
@@ -156,7 +147,7 @@ export default function VimeoHero() {
                         <li>Offline-friendly</li>
                     </ul>
                     <div className="vimeo-hero__cta-row">
-                        <a href={CONTACT.whatsapp} target="_blank" rel="noopener noreferrer" className="vimeo-hero__cta-btn vimeo-hero__cta-btn--solid">
+                        <a href={contact?.whatsapp || CONTACT.whatsapp} target="_blank" rel="noopener noreferrer" className="vimeo-hero__cta-btn vimeo-hero__cta-btn--solid">
                             Start a project
                         </a>
                         <a href="/work" className="vimeo-hero__cta-btn vimeo-hero__cta-btn--ghost">

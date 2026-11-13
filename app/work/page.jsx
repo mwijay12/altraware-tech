@@ -40,7 +40,7 @@ export default function WorkPage() {
                 <div className="band__inner">
                     {work.map((c) => (
                         <article key={c.id} id={c.id} style={{ marginBottom: '2.5rem' }}>
-                            <div className="tile tile--e" style={{ padding: '2rem' }}>
+                            <div className="tile tile--e work-project">
                                 <div className="tagrow">
                                     <span className="products__badge">{c.badge}</span>
                                     <span className="work-case__status">{c.status}</span>
@@ -49,7 +49,7 @@ export default function WorkPage() {
                                 {c.image && (
                                     <div className="shot shot--r" style={{ margin: '1.25rem 0' }}>
                                         <div className="shot__bar" aria-hidden="true"><i /><i /><i /></div>
-                                        <img src={c.image} alt={c.imageAlt} loading="lazy" />
+                                        <img src={c.image} alt={c.imageAlt || `${c.badge} screenshot`} loading="lazy" />
                                     </div>
                                 )}
                                 <div className="work-case__grid">
