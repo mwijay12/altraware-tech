@@ -1,0 +1,92 @@
+/* Desktop finishing: calmer hierarchy, breathing room and readable navigation. */
+@media (min-width: 769px) {
+    .navbar {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+        align-items: center;
+        transition: color .3s ease, background-color .3s ease, box-shadow .3s ease;
+    }
+    .nav-left { justify-self: start; }
+    .nav-right { justify-self: end; }
+    .navbar.is-scrolled {
+        background: rgba(255, 255, 255, .96);
+        box-shadow: 0 1px 0 rgba(11, 37, 69, .1);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+    }
+    .navbar.is-scrolled.on-dark {
+        background: rgba(7, 23, 46, .96);
+        box-shadow: 0 1px 0 rgba(255, 255, 255, .12);
+    }
+
+    .vimeo-hero__title {
+        max-width: 1080px;
+        font-size: clamp(3.5rem, 5.25vw, 5rem);
+        line-height: 1.12;
+        letter-spacing: -.045em;
+        -webkit-text-stroke: 0;
+        user-select: text;
+    }
+    /* These decorative marks used to sit directly over headline words. */
+    .home-header__smiley, .home-header__star, .home-header__title-line-svg { display: none; }
+    .vimeo-hero__intro { max-width: 620px; }
+
+    .pg-hero {
+        padding: 8.5rem 2rem 5rem;
+        background-image: radial-gradient(ellipse at 90% 0%, rgba(255, 255, 255, .3), transparent 46%);
+    }
+    .pg-hero--navy { background-image: radial-gradient(ellipse at 90% 0%, rgba(91, 156, 255, .2), transparent 48%); }
+    .pg-hero__title {
+        font-size: clamp(3.5rem, 5.4vw, 4.8rem);
+        line-height: 1.14;
+        letter-spacing: -.045em;
+        text-wrap: balance;
+    }
+    .pg-hero__title em { display: inline-block; padding: .02em .18em; }
+    .pg-hero__intro { line-height: 1.7; }
+    .band { padding: 5rem 2rem; }
+    .band__title { line-height: 1.12; }
+
+    /* Align content instead of tilting cards while retaining the brand outline. */
+    .band .tile:nth-child(n) {
+        transform: none;
+        border-width: 2px;
+        box-shadow: 0 12px 28px rgba(11, 37, 69, .12);
+    }
+    .band--navy .tile:nth-child(n), .band--blue .tile:nth-child(n) { box-shadow: 0 12px 28px rgba(0, 0, 0, .18); }
+    .band .tile:hover { transform: none !important; }
+    .pricing-grid { gap: 1.5rem; }
+    .pricing-card__link { transition: background-color .2s ease, color .2s ease; }
+    .pricing-card__link:hover { background: #0b2545; color: #fff; }
+}
+
+@media (min-width: 1100px) {
+    /* On wide screens, let the work speak alongside the service introduction. */
+    .pg-hero--services .pg-hero__inner {
+        display: grid;
+        grid-template-columns: minmax(0, 1.2fr) minmax(300px, .8fr);
+        column-gap: 4rem;
+        align-items: start;
+    }
+    .pg-hero--services .pg-hero__inner > :not(.pg-hero__art) { grid-column: 1; justify-self: start; }
+    .pg-hero--services .pg-hero__art {
+        grid-column: 2;
+        grid-row: 1 / 5;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 1rem;
+    }
+    .pg-hero--services .pg-art { width: min(300px, 90%); }
+    .pg-hero--services .pg-art--l { align-self: flex-start; }
+}
+
+@media (min-width: 769px) and (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .band .tile:not(.inquiry-form):hover { transform: translateY(-4px) !important; }
+}
+
+@media (min-width: 769px) and (max-width: 1100px) {
+    /* Decorative marquee art must not widen the page at tablet widths. */
+    .Double-marquee { overflow: clip; }
+}

@@ -53,6 +53,7 @@ export default function Navbar() {
             if (!navbar) return;
             // Check the section behind the fixed nav rather than guessing from
             // route order: inner pages and the closing CTA also have dark bands.
+            navbar.classList.toggle('is-scrolled', window.scrollY > 36);
             const navY = navbar.getBoundingClientRect().height / 2;
             const darkSections = document.querySelectorAll(
                 '.vimeo-hero, .pg-hero--navy, .band--navy, .band--blue, .showreel-section, .cta-band, .work-page__cta, .main-footer'
