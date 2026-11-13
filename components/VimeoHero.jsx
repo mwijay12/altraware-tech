@@ -139,6 +139,14 @@ export default function VimeoHero() {
                     Designed for the way you work, with support after launch.
                 </p>
 
+                <p className="hero-typing">
+                    <span className="hero-typing__prompt" aria-hidden="true">&gt;_</span>
+                    <span className="hero-typing__line">
+                        <span className="hero-typing__text">Built for everyday business.</span>
+                        <span className="hero-typing__caret" aria-hidden="true" />
+                    </span>
+                </p>
+
                 {/* Feature chips and clear next steps */}
                 <div className="vimeo-hero__bottom-row">
                     <ul className="vimeo-hero__features">

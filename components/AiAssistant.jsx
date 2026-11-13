@@ -122,7 +122,7 @@ export default function AiAssistant() {
             {!open && (
                 <button className="ai-fab" onClick={() => setOpen(true)} aria-label="Chat with Altra">
                     <span className="ai-fab-dot" />
-                    Ask Altra
+                    <span className="ai-fab-label">Ask Altra</span>
                 </button>
             )}
         </div>

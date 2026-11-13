@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
+import CountUp from '@/components/CountUp';
 
 export const metadata = {
     title: 'About — Altraware Technologies',
@@ -47,11 +48,11 @@ export default function AboutPage() {
                     </p>
                     <div className="stats-band">
                         <div className="stats-band__item">
-                            <span className="stats-band__value">15+</span>
+                            <CountUp className="stats-band__value" value="15+" />
                             <span className="stats-band__label">projects and platform deployments</span>
                         </div>
                         <div className="stats-band__item">
-                            <span className="stats-band__value">≈99%</span>
+                            <CountUp className="stats-band__value" value="≈99%" />
                             <span className="stats-band__label">average platform uptime (estimate)</span>
                         </div>
                         <div className="stats-band__item">

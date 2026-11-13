@@ -3,7 +3,6 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import '../app/styles/horizontal-words.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -143,6 +142,7 @@ const HorizontalWords = () => {
                     <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 140 127" fill="none" className="horizontal-words__arrow-end-svg"><path d="M2.03125 2.42188C100.469 2.42188 130.156 52.4219 118.437 125.078L99.6875 107.891" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" ></path><path d="M2.03125 2.42188C100.469 2.42188 130.156 52.4219 118.438 125.078L137.969 110.234" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" ></path></svg>
 
                     <h2 className="display horizontal-words__h2" aria-label="We build systems for Tanzanian business">
+<span className="horizontal-words__static-title" aria-hidden="true">We build systems for Tanzanian business</span>
 <div className="letter" aria-hidden="true" style={{ position: "relative", display: "inline-block" }}>W</div>
 <div className="letter" aria-hidden="true" style={{ position: "relative", display: "inline-block" }}>E</div>
 {" "}
@@ -188,8 +188,8 @@ const HorizontalWords = () => {
 
             <div className="horizontal-words__bottom-text">
                 <div className="horizontal-words__bottom-text-l">
-                    Shops, schools, clinics and NGOs run on clear systems.<br />
-                    We design for mobile money, Kiswahili and low connectivity<br />
+                    Shops, schools, clinics and NGOs run on clear systems. <br />
+                    We design for mobile money, Kiswahili and low connectivity <br />
                     — and we stay after launch.
                 </div>
             </div>

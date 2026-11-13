@@ -5,6 +5,7 @@ import React, { useEffect, useRef } from "react";
 import { InertiaPlugin } from "gsap/InertiaPlugin";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useSiteContent } from "@/lib/site-content";
+import CountUp from "@/components/CountUp";
 
 gsap.registerPlugin(InertiaPlugin, ScrollTrigger);
 
@@ -100,6 +101,9 @@ export default function MotionCards() {
             });
         });
 
+        // Keep mobile cards and copy in their natural positions as they enter
+        // the viewport. The desktop animation is preserved.
+        mm.add("(min-width: 769px) and (prefers-reduced-motion: no-preference)", () => {
         const ctx = gsap.context(() => {
             // Entry Animations: Sticker Pop & Underline Draw
             const tl = gsap.timeline({
@@ -151,10 +155,21 @@ export default function MotionCards() {
             }
         }, sectionRef);
 
-        return () => {
-            mm.revert();
-            ctx.revert();
-        };
+        return () => ctx.revert();
+        });
+
+        // Fade only the imagery on mobile, without moving the cards or text.
+        mm.add("(max-width: 768px) and (prefers-reduced-motion: no-preference)", () => {
+            const ctx = gsap.context(() => {
+                gsap.fromTo(".motion-card__card-image img", { opacity: 0.35 }, {
+                    opacity: 1, duration: 0.7, stagger: 0.12, ease: "power2.out",
+                    scrollTrigger: { trigger: ".motion-card__cards-area", start: "top 85%", once: true },
+                });
+            }, sectionRef);
+            return () => ctx.revert();
+        });
+
+        return () => mm.revert();
     }, []);
 
     return (
@@ -273,7 +288,7 @@ export default function MotionCards() {
                 <div className="motion-card__stats">
                     {motion.stats.map((s, i) => (
                         <div key={s.label + i} className="motion-card__stat">
-                            <span className="motion-card__stat-num">{s.num}</span>
+                            <CountUp className="motion-card__stat-num" value={s.num} />
                             <span className="motion-card__stat-label">{s.label}</span>
                         </div>
                     ))}

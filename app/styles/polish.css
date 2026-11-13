@@ -54,7 +54,7 @@
     .horizontal-words-section { height: auto; min-height: 0; padding: 90px 24px; display: flex; flex-direction: column; align-items: center; gap: 30px; }
     .horizontal-words__relative { position: relative; top: auto; transform: none; padding: 0; white-space: normal; text-align: center; }
     .horizontal-words__h2 { font-size: clamp(2.5rem, 9vw, 5rem); line-height: 1.05; white-space: normal; letter-spacing: -.05em; }
-    .horizontal-words__h2::before { content: attr(aria-label); }
+    .horizontal-words__static-title { display: inline; }
     .horizontal-words__h2 .letter { display: none !important; }
     .horizontal-words__sticker-svg > img, .horizontal-words__sticker-svg > svg { display: none; }
     .horizontal-words__bottom-text { position: relative; left: auto; bottom: auto; transform: none; width: auto; max-width: 600px; }
@@ -172,3 +172,126 @@
     .vimeo-hero__cta-btn { flex-basis: 100%; }
     .pg-hero__title { font-size: 2.2rem; }
 }
+
+/* A calm, stacked reading order on phones; desktop keeps its animated layout. */
+@media (max-width: 768px) {
+    .horizontal-words-section {
+        height: auto;
+        min-height: 0;
+        padding: 76px 24px 64px;
+        overflow: visible;
+        gap: 28px;
+    }
+    .horizontal-words__relative {
+        position: relative;
+        inset: auto;
+        width: 100%;
+        padding: 0;
+        transform: none;
+        white-space: normal;
+    }
+    .horizontal-words__h2 {
+        max-width: 550px;
+        margin: 0 auto;
+        font-size: clamp(2.2rem, 8.7vw, 3.5rem);
+        line-height: 1.12;
+        overflow-wrap: normal;
+        text-wrap: balance;
+    }
+    .horizontal-words__bottom-text {
+        position: relative;
+        inset: auto;
+        transform: none;
+        width: 100%;
+        max-width: 480px;
+        padding: 20px;
+    }
+    .horizontal-words__bottom-text-l { font-size: 1rem; line-height: 1.6; }
+    .motion-card-section { padding: 64px 20px 72px; }
+    .motion-card__heading { margin-bottom: 32px; }
+    .motion-card__title { line-height: 1.15; }
+    .motion-card__subtitle { display: block; margin-top: 12px; }
+    .motion-card__underline-svg { margin-top: 18px; }
+    .motion-card__cards-area { margin-top: 0; }
+    .motion-card__stat:nth-child(n) { transform: none; }
+
+    /* Balanced columns stop the brand and actions from colliding on small screens. */
+    .navbar { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; }
+    .nav-left, .nav-right { min-width: 0; }
+    .nav-mobile-work, .nav-mobile-whatsapp { min-width: 44px; white-space: nowrap; }
+    .nav-menu-btn { order: 2; flex: 0 0 44px; }
+    .nav-mobile-whatsapp { order: 1; }
+}
+@media (max-width: 360px) {
+    .nav-mobile-whatsapp { display: inline-flex; }
+    .navbar { gap: 4px; padding-inline: 10px; }
+    .logo-altraware { font-size: 1rem; }
+    .nav-right { gap: 2px; }
+}
+@media (max-width: 768px) {
+    /* Do not let decorative artwork widen the mobile layout viewport. */
+    .Double-marquee { overflow: clip; }
+    .home-header__smiley, .home-header__star, .home-header__title-line-svg { display: none; }
+    /* GSAP animates xPercent; a pre-existing pixel translation left the
+       mobile menu panels off-screen and the menu transparent. */
+    .km-panel { transform: none; }
+    .ai-fab { width: 48px; height: 48px; padding: 0; justify-content: center; }
+    .ai-fab-label { display: none; }
+    .ai-fab-dot { width: 12px; height: 12px; }
+}
+@media (max-width: 768px) {
+    .ai-fab-dot { display: none; }
+    .ai-fab::after { content: 'AI'; font-size: .85rem; letter-spacing: .02em; }
+}
+
+/* Motion accents keep their final text in the layout while animating. */
+.hero-typing {
+    position: relative;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    max-width: 100%;
+    margin-top: 18px;
+    padding: 8px 13px;
+    border: 1px solid rgba(160, 197, 255, .25);
+    border-radius: 999px;
+    background: rgba(7, 23, 46, .42);
+    color: #d8e8ff;
+    font: 600 .8rem/1.25 'DM Sans', sans-serif;
+}
+.hero-typing__prompt { color: #8dbdff; font-weight: 800; }
+.hero-typing__line { position: relative; display: inline-block; padding-right: 3px; }
+.hero-typing__text { display: inline-block; white-space: nowrap; }
+.hero-typing__caret { position: absolute; left: 0; top: .12em; width: 2px; height: 1em; background: #8dbdff; }
+.count-up { display: inline-grid; grid-template-columns: auto; font-variant-numeric: tabular-nums; }
+.count-up__measure, .count-up__display { grid-area: 1 / 1; }
+.count-up__measure { visibility: hidden; }
+.count-up__accessible { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+@media (prefers-reduced-motion: no-preference) {
+    .hero-typing__text { animation: hero-type 2.1s steps(28, end) .4s both; }
+    .hero-typing__caret { animation: hero-caret-move 2.1s steps(28, end) .4s both, hero-caret .7s steps(2, start) 4; }
+    .vimeo-hero__texture { animation: hero-grid-drift 24s ease-in-out infinite alternate; }
+    @keyframes hero-type { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+    @keyframes hero-caret-move { from { left: 0; } to { left: calc(100% - 2px); } }
+    @keyframes hero-caret { 50% { opacity: 0; } }
+    @keyframes hero-grid-drift { from { background-position: 0 0, 0 0, 0 0, 0 0; } to { background-position: 0 0, 0 0, 0 24px, 24px 0; } }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .products__cta span { transition: transform .25s ease; }
+    .products__cta:hover span { transform: translate(4px, -4px); }
+    .motion-card__stat { transition: box-shadow .25s ease; }
+    .motion-card__stat:hover { box-shadow: 7px 7px 0 var(--color-darkblue); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .title-underline-svg path { stroke-dashoffset: 0; }
+    .cta-band__glow { opacity: 1; }
+    .hero-typing__caret { display: none; }
+}
+@media (max-width: 360px) {
+    .hero-typing { font-size: .75rem; }
+}
+/* Keep stat labels on their own line while reserving space for the final value. */
+.motion-card__stat-num.count-up { display: grid; width: max-content; margin-inline: auto; }
+.stats-band__value.count-up { display: grid; width: max-content; }

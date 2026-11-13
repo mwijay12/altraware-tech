@@ -123,3 +123,5 @@
     z-index: 2;
     white-space: nowrap;
 }
+/* The static title is used when the horizontal animation is disabled. */
+.horizontal-words__static-title { display: none; }

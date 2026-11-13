@@ -75,6 +75,9 @@ export default function RevealAnims() {
 
             // Scroll: rise + fade for plain blocks.
             RISE.forEach((sel) => {
+                // On phones this card is in normal flow: keep it in place while
+                // scrolling so it cannot slide over the following section.
+                if (sel === '.horizontal-words__bottom-text' && window.matchMedia('(max-width: 768px)').matches) return;
                 gsap.utils.toArray(sel).forEach((el) => {
                     gsap.fromTo(
                         el,
