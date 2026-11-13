@@ -295,3 +295,49 @@
 /* Keep stat labels on their own line while reserving space for the final value. */
 .motion-card__stat-num.count-up { display: grid; width: max-content; margin-inline: auto; }
 .stats-band__value.count-up { display: grid; width: max-content; }
+
+/* Form feedback stays readable and offers a direct alternative if email fails. */
+.inquiry-error { margin-top: 1rem; padding: 1rem; border-radius: .75rem; background: #fff1f2; border: 1px solid #d77c8d; color: #81243a; font: 600 .95rem/1.5 'DM Sans', sans-serif; }
+.inquiry-error a { display: inline-block; margin-top: .4rem; color: inherit; font-weight: 800; }
+.admin-field select:focus-visible { outline: 3px solid #72aaff; outline-offset: 3px; }
+
+/* Product cards: clearer status and a little more visual hierarchy. */
+.products__card { background: linear-gradient(145deg, #142f51, #0e2440); box-shadow: 0 14px 35px rgba(0, 0, 0, .12); }
+.products__status { display: flex; align-items: center; gap: .55rem; line-height: 1.45; }
+.products__status::before { content: ''; flex: 0 0 8px; width: 8px; height: 8px; border-radius: 50%; background: #73d9aa; }
+.products__status--development::before { background: #f6cb78; }
+
+/* The same typing accent appears on every public inner-page hero. */
+.page-typing {
+    display: inline-flex;
+    align-items: center;
+    gap: .55rem;
+    max-width: 100%;
+    margin-top: 1.2rem;
+    padding: .55rem .8rem;
+    border: 1px solid rgba(11, 37, 69, .22);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .6);
+    color: #123b8f;
+    font: 700 .8rem/1.25 'DM Sans', sans-serif;
+}
+.pg-hero--navy .page-typing { color: #e4efff; background: rgba(255, 255, 255, .08); border-color: rgba(255, 255, 255, .3); }
+.page-typing__prompt { color: #2f7bff; font-weight: 900; }
+.pg-hero--navy .page-typing__prompt { color: #9cc5ff; }
+.page-typing__line { position: relative; display: inline-block; padding-right: 3px; }
+.page-typing__text { display: inline-block; white-space: nowrap; }
+.page-typing__caret { position: absolute; left: 0; top: .12em; width: 2px; height: 1em; background: currentColor; opacity: 0; }
+@media (prefers-reduced-motion: no-preference) {
+    .page-typing--play .page-typing__text { animation: page-type 1.8s steps(var(--typing-steps), end) .2s both; }
+    .page-typing--play .page-typing__caret { animation: page-caret-move 1.8s steps(var(--typing-steps), end) .2s both, page-caret-blink .65s step-end 4; }
+    @keyframes page-type { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+    @keyframes page-caret-move { from { left: 0; } to { left: calc(100% - 2px); } }
+    @keyframes page-caret-blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .band .abtn, .work-page__btn { transition: transform .25s ease, box-shadow .25s ease; }
+    .band .abtn:hover, .work-page__btn:hover { transform: translateY(-3px); box-shadow: 6px 7px 0 rgba(0, 0, 0, .25); }
+    details.faq summary::after { transition: transform .25s ease; }
+    details.faq[open] summary::after { transform: rotate(180deg); }
+}
+@media (max-width: 360px) { .page-typing { font-size: .74rem; } }

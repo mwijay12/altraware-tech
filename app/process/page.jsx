@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
+import PageTyping from '@/components/PageTyping';
 
 export const metadata = {
     title: 'Process — Altraware Technologies',
@@ -26,6 +27,7 @@ export default function ProcessPage() {
                         Five phases. You approve each step before we bill the next — no surprises, only a clear
                         njia forward.
                     </p>
+                    <PageTyping text="From idea to launch." />
                 </div>
             </header>
 

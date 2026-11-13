@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import { CONTACT } from '@/lib/data';
 
 const QUICK = ['How much is a website?', 'Show me Faida POS', 'Do systems work offline?', 'Talk to a human'];
@@ -28,6 +29,8 @@ export default function AiAssistant() {
     const [typing, setTyping] = useState(false);
     const bodyRef = useRef(null);
     const [ready, setReady] = useState(false);
+    const [hideFab, setHideFab] = useState(false);
+    const pathname = usePathname();
 
     useEffect(() => {
         const show = () => setReady(true);
@@ -38,6 +41,27 @@ export default function AiAssistant() {
             return () => clearTimeout(t);
         }
     }, []);
+
+    // On small screens, keep the floating launcher away from the hero buttons.
+    useEffect(() => {
+        setHideFab(false);
+        const actions = document.querySelector('.vimeo-hero__cta-row');
+        if (!actions || !('IntersectionObserver' in window)) return;
+        const media = window.matchMedia('(max-width: 768px)');
+        const observer = new IntersectionObserver(([entry]) => {
+            setHideFab(media.matches && entry.isIntersecting);
+        }, { threshold: 0 });
+        observer.observe(actions);
+        const update = () => {
+            if (!media.matches) setHideFab(false);
+            else {
+                const rect = actions.getBoundingClientRect();
+                setHideFab(rect.bottom > 0 && rect.top < window.innerHeight);
+            }
+        };
+        media.addEventListener('change', update);
+        return () => { observer.disconnect(); media.removeEventListener('change', update); };
+    }, [pathname]);
 
     useEffect(() => {
         if (bodyRef.current) {
@@ -119,7 +143,7 @@ export default function AiAssistant() {
                     </a>
                 </div>
             )}
-            {!open && (
+            {!open && !hideFab && (
                 <button className="ai-fab" onClick={() => setOpen(true)} aria-label="Chat with Altra">
                     <span className="ai-fab-dot" />
                     <span className="ai-fab-label">Ask Altra</span>

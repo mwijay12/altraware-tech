@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
+import PageTyping from '@/components/PageTyping';
 
 export const metadata = {
     title: 'Page not found — Altraware Technologies',
@@ -21,6 +22,7 @@ export default function NotFound() {
                         The link is broken or the page moved. Our systems have 99% uptime (estimate) —
                         this missing page is the 1%. Let’s get you back.
                     </p>
+                    <PageTyping text="Let’s get you back." />
                     <div className="pg-hero__art" style={{ justifyContent: 'center' }}>
                         <figure className="pg-art pg-art--l">
                             <img src="/assets/work/faidahq.png" alt="Faida POS terminal" loading="lazy" />

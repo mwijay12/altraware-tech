@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
+import PageTyping from '@/components/PageTyping';
 
 export const metadata = {
     title: 'Services — Altraware Technologies',
@@ -66,6 +67,7 @@ export default function ServicesPage() {
                         From business sites to platforms that run your entire operation. Prices below are
                         starting points — every project ends with a fixed written quote after a free discovery call.
                     </p>
+                    <PageTyping text="Built around your work." />
                     <div className="pg-hero__art">
                         <figure className="pg-art pg-art--l">
                             <img src="/assets/work/faidahq.png" alt="Faida POS terminal" loading="lazy" />

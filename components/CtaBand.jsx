@@ -4,8 +4,10 @@ import { useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { CONTACT } from '@/lib/data';
+import { useSiteContent } from '@/lib/site-content';
 
 export default function CtaBand() {
+    const { contact } = useSiteContent();
     useEffect(() => {
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         gsap.registerPlugin(ScrollTrigger);
@@ -53,7 +55,7 @@ export default function CtaBand() {
                 </p>
                 <div className="cta-band__actions">
                     <a
-                        href={CONTACT.whatsapp}
+                        href={contact?.whatsapp || CONTACT.whatsapp}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="cta-band__btn cta-band__btn--solid"

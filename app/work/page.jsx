@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
+import PageTyping from '@/components/PageTyping';
 import { useSiteContent } from '@/lib/site-content';
 
 const DEPLOYMENTS = [
@@ -33,6 +34,7 @@ export default function WorkPage() {
                         Three products, one habit: plain systems your team actually uses, with training and
                         support after launch. Built with data privacy in mind.
                     </p>
+                    <PageTyping text="Made for real work." />
                 </div>
             </header>
 

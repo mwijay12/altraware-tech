@@ -32,6 +32,7 @@ export default function Navbar() {
     const isHome = pathname === '/';
 
     const onNav = (e, href, label) => {
+        if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
         e.preventDefault();
         goWithWipe(router, href, label);
     };
@@ -49,56 +50,23 @@ export default function Navbar() {
         }
 
         const updateNavbarColor = () => {
-            // Re-query every call: elements from layout.jsx (footer) and nested
-            // sections can mount a tick after this effect runs, so caching them
-            // once at mount time can silently freeze the color on 'on-dark' forever.
             if (!navbar) return;
-            const motionCardsSection = document.querySelector('.motion-cards-wrapper');
-            const footerEl = document.querySelector('.main-footer');
-            if (!footerEl) return;
-
-            const scrollPos = window.scrollY + navbar.offsetHeight / 2;
-
-            if (!isHome) {
-                // On inner pages, stay on-light unless over footer
-                const footerTop = footerEl ? footerEl.getBoundingClientRect().top + window.scrollY : Infinity;
-                if (scrollPos >= footerTop) {
-                    navbar.classList.add('on-dark'); navbar.classList.remove('on-light');
-                } else {
-                    navbar.classList.add('on-light'); navbar.classList.remove('on-dark');
-                }
-                return;
-            }
-
-            // Homepage logic
-            const contentSection = document.querySelector('.content-section');
-            if (!contentSection || !footerEl) return;
-
-            const contentTop = contentSection.getBoundingClientRect().top + window.scrollY;
-            const showreelSection = document.querySelector('#showreel-section');
-            const showreelTop = showreelSection ? showreelSection.getBoundingClientRect().top + window.scrollY : Infinity;
-            const serviceCardsSection = document.querySelector('.service-cards-wrapper');
-            const serviceCardsTop = serviceCardsSection ? serviceCardsSection.getBoundingClientRect().top + window.scrollY : Infinity;
-            const doubleMarquee = document.querySelector('.Double-marquee');
-            const doubleMarqueeTop = doubleMarquee ? doubleMarquee.getBoundingClientRect().top + window.scrollY : Infinity;
-            const footerTop = footerEl.getBoundingClientRect().top + window.scrollY;
-
-            if (scrollPos >= footerTop) {
-                navbar.classList.add('on-dark'); navbar.classList.remove('on-light');
-            } else if (scrollPos >= doubleMarqueeTop) {
-                navbar.classList.add('on-light'); navbar.classList.remove('on-dark');
-            } else if (scrollPos >= serviceCardsTop) {
-                navbar.classList.add('on-light'); navbar.classList.remove('on-dark');
-            } else if (scrollPos >= showreelTop) {
-                navbar.classList.add('on-dark'); navbar.classList.remove('on-light');
-            } else if (scrollPos >= contentTop) {
-                navbar.classList.add('on-light'); navbar.classList.remove('on-dark');
-            } else {
-                navbar.classList.add('on-dark'); navbar.classList.remove('on-light');
-            }
+            // Check the section behind the fixed nav rather than guessing from
+            // route order: inner pages and the closing CTA also have dark bands.
+            const navY = navbar.getBoundingClientRect().height / 2;
+            const darkSections = document.querySelectorAll(
+                '.vimeo-hero, .pg-hero--navy, .band--navy, .band--blue, .showreel-section, .cta-band, .work-page__cta, .main-footer'
+            );
+            const onDark = Array.from(darkSections).some((section) => {
+                const rect = section.getBoundingClientRect();
+                return rect.top <= navY && rect.bottom > navY;
+            });
+            navbar.classList.toggle('on-dark', onDark);
+            navbar.classList.toggle('on-light', !onDark);
         };
 
         window.addEventListener('scroll', updateNavbarColor);
+        window.addEventListener('resize', updateNavbarColor);
         updateNavbarColor();
 
         // Wiggle on logo and whatsapp
@@ -325,6 +293,7 @@ export default function Navbar() {
 
         return () => {
             window.removeEventListener('scroll', updateNavbarColor);
+            window.removeEventListener('resize', updateNavbarColor);
             cleanups.forEach(fn => fn && fn());
         };
     }, [isHome, pathname]);

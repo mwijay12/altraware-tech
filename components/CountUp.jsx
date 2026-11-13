@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { whenPageVisible } from '@/lib/page-motion';
 
 /** Animate a simple numeric value once when it enters view, preserving its suffix. */
 export default function CountUp({ value, className = '' }) {
@@ -38,10 +39,11 @@ export default function CountUp({ value, className = '' }) {
             observer.disconnect();
             frame = requestAnimationFrame(tick);
         }, { threshold: 0.3 });
-        observer.observe(el);
+        const cancelWait = whenPageVisible(() => observer.observe(el));
 
         const onMotionChange = (event) => {
             if (event.matches) {
+                cancelWait();
                 observer.disconnect();
                 finish();
             }
@@ -49,6 +51,7 @@ export default function CountUp({ value, className = '' }) {
         motion.addEventListener('change', onMotionChange);
         return () => {
             observer.disconnect();
+            cancelWait();
             motion.removeEventListener('change', onMotionChange);
             finish();
         };

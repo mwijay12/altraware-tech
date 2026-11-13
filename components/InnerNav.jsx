@@ -18,6 +18,7 @@ export default function InnerNav() {
     const router = useRouter();
 
     const onNav = (e, href, label) => {
+        if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
         e.preventDefault();
         goWithWipe(router, href, label);
     };

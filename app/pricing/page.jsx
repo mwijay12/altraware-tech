@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
+import PageTyping from '@/components/PageTyping';
 
 export const metadata = {
     title: 'Pricing — Altraware Technologies',
@@ -65,6 +66,7 @@ export default function PricingPage() {
                         Pick what you need. All prices are starting points — your final figure is fixed in a
                         written quote after a free discovery call.
                     </p>
+                    <PageTyping text="Clear pricing, no surprises." />
                 </div>
             </header>
 

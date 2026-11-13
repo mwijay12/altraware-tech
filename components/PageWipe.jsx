@@ -20,7 +20,7 @@ export default function PageWipe() {
     useEffect(() => {
         const handleGlobalClick = (e) => {
             const link = e.target.closest('a[href^="/"]');
-            if (!link || e.defaultPrevented) return;
+            if (!link || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
 
             const href = link.getAttribute('href');
             if (!href || href.startsWith('//') || href.startsWith('/#') || href.includes('#')) return;

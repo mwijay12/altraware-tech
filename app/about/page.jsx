@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
+import PageTyping from '@/components/PageTyping';
 import CountUp from '@/components/CountUp';
 
 export const metadata = {
@@ -46,6 +47,7 @@ export default function AboutPage() {
                         schools, care centres and NGOs — combining mobile payments and Kiswahili with modern
                         engineering and practical, long-term support.
                     </p>
+                    <PageTyping text="Rooted in Tanzania." />
                     <div className="stats-band">
                         <div className="stats-band__item">
                             <CountUp className="stats-band__value" value="15+" />

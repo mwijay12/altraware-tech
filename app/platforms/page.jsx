@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
+import PageTyping from '@/components/PageTyping';
 
 export const metadata = {
     title: 'Platforms — Altraware Technologies',
@@ -24,6 +25,7 @@ export default function PlatformsPage() {
                         Live platforms you can open right now — built the Altraware way: Kiswahili-first,
                         offline-ready, M-Pesa native.
                     </p>
+                    <PageTyping text="Try the tools we build." />
                 </div>
             </header>
 

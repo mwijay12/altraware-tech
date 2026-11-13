@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import Navbar from '@/components/Navbar';
+import PageTyping from '@/components/PageTyping';
 import { useSiteContent } from '@/lib/site-content';
 
 export default function BlogPostPage() {
@@ -39,6 +40,7 @@ export default function BlogPostPage() {
                     <span className="pg-hero__badge">{post.date}</span>
                     <h1 className="pg-hero__title" style={{ fontSize: 'clamp(2rem, 5vw, 3.4rem)' }}>{post.title}</h1>
                     <p className="pg-hero__intro">{post.excerpt}</p>
+                    <PageTyping text="Practical digital insights." />
                 </div>
             </header>
 
