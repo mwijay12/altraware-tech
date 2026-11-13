@@ -1,5 +1,8 @@
 'use client';
 
+import { useSiteContent } from '@/lib/site-content';
+import { CONTACT } from '@/lib/data';
+
 const PRODUCTS = [
     {
         badge: 'Faida POS',
@@ -19,6 +22,7 @@ const PRODUCTS = [
 ];
 
 export default function Showreel() {
+    const { contact } = useSiteContent();
     return (
         <section className="showreel-section" id="showreel-section">
             <div className="showreel__content products__content">
@@ -33,7 +37,9 @@ export default function Showreel() {
                         </div>
                     ))}
                 </div>
-                <p className="products__cta">One clear next step: send us a WhatsApp.</p>
+                <a className="products__cta" href={contact?.whatsapp || CONTACT.whatsapp} target="_blank" rel="noopener noreferrer">
+                    Ask us about a product <span aria-hidden="true">↗</span>
+                </a>
             </div>
         </section>
     );

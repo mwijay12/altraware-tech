@@ -68,9 +68,13 @@ export default function DoubleMarquee() {
     useEffect(() => {
         gsap.registerPlugin(ScrollTrigger);
 
-        const mobile = window.matchMedia('(max-width: 768px)').matches;
-        setIsMobile(mobile);
-        setTracks(buildMarqueeItems(mobile));
+        const media = window.matchMedia('(max-width: 768px)');
+        const updateTracks = () => {
+            setIsMobile(media.matches);
+            setTracks(buildMarqueeItems(media.matches));
+        };
+        updateTracks();
+        media.addEventListener('change', updateTracks);
 
         // Arrow path animation
         gsap.set('.marquee-left .marquee-svg-item:nth-child(2) path', { strokeDashoffset: 1000 });
@@ -89,6 +93,7 @@ export default function DoubleMarquee() {
             .to('.marquee-left .marquee-svg-item:nth-child(2) path', { strokeDashoffset: 0, duration: 1.5, ease: 'power2.out' }, '-=0.3');
 
         return () => {
+            media.removeEventListener('change', updateTracks);
             ScrollTrigger.getAll().forEach(t => { if (t.vars.trigger === '.Double-marquee') t.kill(); });
         };
     }, []);

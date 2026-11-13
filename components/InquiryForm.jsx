@@ -54,15 +54,15 @@ export default function InquiryForm() {
             <p style={{ marginBottom: '1rem' }}>We reply within one working day — with a reference number and next steps.</p>
             <label className="admin-field">
                 <span>Your name *</span>
-                <input value={form.name} onChange={(e) => set('name', e.target.value)} placeholder="e.g. Neema Mwakalinga" />
+                <input type="text" autoComplete="name" required value={form.name} onChange={(e) => set('name', e.target.value)} placeholder="e.g. Neema Mwakalinga" />
             </label>
             <label className="admin-field">
                 <span>Phone / WhatsApp *</span>
-                <input value={form.phone} onChange={(e) => set('phone', e.target.value)} placeholder="+255 …" />
+                <input type="tel" autoComplete="tel" required value={form.phone} onChange={(e) => set('phone', e.target.value)} placeholder="+255 …" />
             </label>
             <label className="admin-field">
                 <span>Email (for our reply)</span>
-                <input value={form.email} onChange={(e) => set('email', e.target.value)} placeholder="you@business.co.tz" />
+                <input type="email" autoComplete="email" value={form.email} onChange={(e) => set('email', e.target.value)} placeholder="you@business.co.tz" />
             </label>
             <label className="admin-field">
                 <span>What do you need?</span>

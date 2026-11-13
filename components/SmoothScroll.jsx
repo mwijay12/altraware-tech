@@ -7,6 +7,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 export default function SmoothScroll() {
     useEffect(() => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         gsap.registerPlugin(ScrollTrigger);
 
         const lenis = new Lenis({
@@ -17,7 +18,8 @@ export default function SmoothScroll() {
         });
 
         lenis.on('scroll', ScrollTrigger.update);
-        gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+        const tick = (time) => { lenis.raf(time * 1000); };
+        gsap.ticker.add(tick);
         gsap.ticker.lagSmoothing(0);
 
         // Dynamic Tab Title Change
@@ -31,6 +33,7 @@ export default function SmoothScroll() {
         window.__lenis = lenis;
 
         return () => {
+            gsap.ticker.remove(tick);
             lenis.destroy();
             document.removeEventListener('visibilitychange', handleVisibility);
             delete window.__lenis;
