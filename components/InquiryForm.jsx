@@ -52,9 +52,9 @@ export default function InquiryForm() {
     }
 
     return (
-        <form onSubmit={submit} className="tile tile--e">
+        <form onSubmit={submit} className="tile tile--e inquiry-form">
             <h3>Send a project brief</h3>
-            <p style={{ marginBottom: '1rem' }}>We reply within one working day — with a reference number and next steps.</p>
+            <p className="inquiry-form__intro">We reply within one working day — with a reference number and next steps.</p>
             <label className="admin-field">
                 <span>Your name *</span>
                 <input type="text" autoComplete="name" required value={form.name} onChange={(e) => set('name', e.target.value)} placeholder="e.g. Neema Mwakalinga" />
