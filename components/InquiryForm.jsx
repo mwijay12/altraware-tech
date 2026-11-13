@@ -1,11 +1,14 @@
 'use client';
 
 import { useState } from 'react';
+import { CONTACT } from '@/lib/data';
+import { useSiteContent } from '@/lib/site-content';
 
 const TYPES = ['Website', 'Web / Mobile App', 'Faida POS', 'CareTrack', 'School System', 'Support Plan', 'Something else'];
 
 /** Project inquiry form → /api/inquiries → client auto-reply + admin alert email. */
 export default function InquiryForm() {
+    const { contact } = useSiteContent();
     const [form, setForm] = useState({ name: '', phone: '', email: '', type: 'Website', message: '' });
     const [state, setState] = useState({ sending: false, done: null, error: '' });
 
@@ -35,7 +38,7 @@ export default function InquiryForm() {
 
     if (state.done) {
         return (
-            <div className="tile tile--a">
+            <div className="tile tile--a" role="status">
                 <h3>Message received ✓</h3>
                 <p>
                     Thanks! Your reference is <strong>{state.done.refCode}</strong>.
@@ -76,7 +79,12 @@ export default function InquiryForm() {
                 <span>About your project</span>
                 <textarea value={form.message} rows={4} onChange={(e) => set('message', e.target.value)} placeholder="I run a shop in Kariakoo and I need…" />
             </label>
-            {state.error && <p style={{ color: '#a0325a', fontWeight: 700 }}>{state.error}</p>}
+            {state.error && (
+                <div className="inquiry-error" role="alert">
+                    <p>{state.error}</p>
+                    <a href={contact?.whatsapp || CONTACT.whatsapp} target="_blank" rel="noopener noreferrer">Chat with us on WhatsApp ↗</a>
+                </div>
+            )}
             <button className="abtn abtn--pop" type="submit" disabled={state.sending} style={{ marginTop: '1rem' }}>
                 {state.sending ? 'Sending…' : 'Send brief'}
             </button>

@@ -187,6 +187,7 @@ export function uncoverTransition() {
         )
         .add(() => {
             overlay?.classList.remove('active');
+            window.dispatchEvent(new Event('altraware:page-visible'));
             gsap.set('#transitionCenter', { opacity: 0 });
             gsap.set('.curtain-col-accent, .curtain-col-navy', { scaleY: 0 });
             ScrollTrigger.refresh();

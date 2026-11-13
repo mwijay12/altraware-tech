@@ -8,16 +8,19 @@ const PRODUCTS = [
         badge: 'Faida POS',
         title: 'Sales, stock and receipts for retail shops.',
         status: 'Live — talk to us for a demo.',
+        statusTone: 'live',
     },
     {
         badge: 'CareTrack',
         title: 'Simple records for care centres. Demo uses fake data only.',
         status: 'Live — talk to us for a demo.',
+        statusTone: 'live',
     },
     {
         badge: 'ShuleDirect',
         title: 'Fees, attendance and reports for schools.',
         status: 'In development.',
+        statusTone: 'development',
     },
 ];
 
@@ -33,7 +36,7 @@ export default function Showreel() {
                         <div key={p.badge} className="products__card">
                             <span className="products__badge">{p.badge}</span>
                             <p className="products__desc">{p.title}</p>
-                            <span className="products__status">{p.status}</span>
+                            <span className={`products__status products__status--${p.statusTone}`}>{p.status}</span>
                         </div>
                     ))}
                 </div>

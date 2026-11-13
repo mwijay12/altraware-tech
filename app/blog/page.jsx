@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
+import PageTyping from '@/components/PageTyping';
 import { useSiteContent } from '@/lib/site-content';
 
 export default function BlogPage() {
@@ -23,6 +24,7 @@ export default function BlogPage() {
                         Short notes on websites, systems and running a business in Tanzania.
                         New posts appear here as soon as they are published in /admin.
                     </p>
+                    <PageTyping text="Good ideas, simply put." />
                 </div>
             </header>
 

@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { CONTACT } from "@/lib/data";
+import { serviceWhatsAppLink } from "@/lib/whatsapp";
 import { useSiteContent } from "@/lib/site-content";
 
 export default function ServiceCards() {
@@ -175,7 +176,7 @@ export default function ServiceCards() {
               ))}
             </ul>
             <a
-              href={`${waBase}%20I%20want%20to%20discuss%20${encodeURIComponent(card.title)}`}
+              href={serviceWhatsAppLink(waBase, card.title)}
               target="_blank"
               rel="noopener noreferrer"
               className="card-action-hint"

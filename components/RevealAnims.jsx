@@ -42,7 +42,7 @@ export default function RevealAnims() {
     }, []);
 
     useEffect(() => {
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        if (pathname !== '/' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         const ctx = gsap.context(() => {
             // Entrance: hero content on every page load.
             const heroBits = document.querySelectorAll(

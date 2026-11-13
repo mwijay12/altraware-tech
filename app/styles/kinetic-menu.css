@@ -38,7 +38,8 @@
 .km-panel {
     position: absolute;
     inset: 0;
-    transform: translateX(101%);
+    /* The menu wrapper is hidden until GSAP animates the panels in. */
+    transform: none;
 }
 
 .km-panel.first { background: #0b2545; }

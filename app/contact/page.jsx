@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import Navbar from '@/components/Navbar';
+import PageTyping from '@/components/PageTyping';
 import InquiryForm from '@/components/InquiryForm';
 import { useSiteContent } from '@/lib/site-content';
 
@@ -22,6 +23,7 @@ export default function ContactPage() {
                         One conversation. Zero pressure. A written plan and honest price within days.
                         The fastest way to reach us is WhatsApp.
                     </p>
+                    <PageTyping text="Let’s build together." />
                     <div style={{ marginTop: '1.75rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
                         <a href={contact.whatsapp} target="_blank" rel="noopener noreferrer" className="abtn abtn--pop">
                             WhatsApp {contact.phonePrimary}

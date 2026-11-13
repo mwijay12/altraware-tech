@@ -7,7 +7,6 @@ import ServiceCards from '@/components/ServiceCards';
 import MotionCards from '@/components/MotionCards';
 import Showreel from '@/components/Showreel';
 import DoubleMarquee from '@/components/DoubleMarquee';
-import TransitionScribble from '@/components/TransitionScribble';
 import SmoothScroll from '@/components/SmoothScroll';
 import CtaBand from '@/components/CtaBand';
 
@@ -36,7 +35,6 @@ export default function Home() {
                 <DoubleMarquee />
             </section>
             <CtaBand />
-            <TransitionScribble />
         </>
     );
 }

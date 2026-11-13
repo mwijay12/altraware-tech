@@ -137,7 +137,35 @@ export default function KineticMenu() {
         return () => ctx.revert();
     }, [isMenuOpen]);
 
+    useEffect(() => {
+        if (!isMenuOpen) return;
+        const previousFocus = document.activeElement;
+        const menu = containerRef.current?.querySelector('.km-menu');
+        const frame = requestAnimationFrame(() => menu?.querySelector('.km-close')?.focus());
+        const trapFocus = (event) => {
+            if (event.key !== 'Tab' || !menu) return;
+            const items = Array.from(menu.querySelectorAll('a[href], button:not([disabled])'));
+            if (!items.length) return;
+            const first = items[0];
+            const last = items[items.length - 1];
+            if (event.shiftKey && (document.activeElement === first || !menu.contains(document.activeElement))) {
+                event.preventDefault();
+                last.focus();
+            } else if (!event.shiftKey && (document.activeElement === last || !menu.contains(document.activeElement))) {
+                event.preventDefault();
+                first.focus();
+            }
+        };
+        document.addEventListener('keydown', trapFocus);
+        return () => {
+            cancelAnimationFrame(frame);
+            document.removeEventListener('keydown', trapFocus);
+            if (previousFocus?.isConnected) previousFocus.focus();
+        };
+    }, [isMenuOpen]);
+
     const go = (e, href) => {
+        if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
         e.preventDefault();
         setIsMenuOpen(false);
         window.setTimeout(() => goWithWipe(router, href), 120);
@@ -147,7 +175,7 @@ export default function KineticMenu() {
         <div ref={containerRef} className="km-root" aria-hidden={!isMenuOpen}>
             <div data-nav={isMenuOpen ? 'open' : 'closed'} className="km-wrap">
                 <div className="km-overlay" onClick={() => setIsMenuOpen(false)} />
-                <nav className="km-menu">
+                <nav className="km-menu" aria-label="Main menu">
                     <div className="km-bg">
                         <div className="km-panel first" />
                         <div className="km-panel second" />
