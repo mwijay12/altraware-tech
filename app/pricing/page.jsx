@@ -70,26 +70,37 @@ export default function PricingPage() {
                 </div>
             </header>
 
-            <section className="band band--paper">
+            <section className="band band--paper pricing-section" aria-labelledby="packages-title">
                 <div className="band__inner">
-                    <div className="tiles">
+                    <div className="pricing-section__heading">
+                        <div>
+                            <p className="band__kicker">Find your fit</p>
+                            <h2 className="band__title" id="packages-title">Start with what you need.</h2>
+                        </div>
+                        <p>Explore the starting packages below. We’ll confirm the scope and price together.</p>
+                    </div>
+                    <div className="tiles pricing-grid">
                         {PACKAGES.map((p) => (
-                            <div key={p.name} className={`tile ${p.tile}`} style={{ position: 'relative' }}>
+                            <article key={p.name} className={`tile pricing-card ${p.tile}`}>
                                 {p.popular && (
                                     <span className="price-sticker" style={{ position: 'absolute', top: '-1.1rem', right: '1rem', fontSize: '1rem' }}>
                                         POPULAR
                                     </span>
                                 )}
-                                <h3 style={{ fontSize: '1.4rem' }}>{p.name}</h3>
-                                <p className="price-tag" style={{ color: 'inherit', margin: '0.4rem 0' }}>{p.price}</p>
-                                <p style={{ fontWeight: 700, fontSize: '0.9rem' }}>{p.unit}</p>
-                                <p style={{ marginTop: '0.5rem' }}>{p.tagline}</p>
-                                <ul style={{ marginTop: '0.75rem' }}>
+                                <h3>{p.name}</h3>
+                                <p className="price-tag pricing-card__price">{p.price}</p>
+                                <p className="pricing-card__unit">{p.unit}</p>
+                                <p className="pricing-card__description">{p.tagline}</p>
+                                <p className="pricing-card__includes">What’s included</p>
+                                <ul className="pricing-card__features">
                                     {p.features.map((f) => (
                                         <li key={f}>{f}</li>
                                     ))}
                                 </ul>
-                            </div>
+                                <Link href="/contact" className="pricing-card__link" aria-label={`Get a quote — contact us about ${p.name}`}>
+                                    Get a quote <span aria-hidden="true">↗</span>
+                                </Link>
+                            </article>
                         ))}
                     </div>
                 </div>
@@ -99,17 +110,17 @@ export default function PricingPage() {
                 <div className="band__inner">
                     <p className="band__kicker">After launch</p>
                     <h2 className="band__title">Stay supported, from TSh 99,000/mo.</h2>
-                    <div className="tiles tiles--3">
+                    <div className="tiles tiles--3 pricing-support">
                         {SUPPORT.map((s) => (
-                            <div key={s.name} className={`tile ${s.tile}`}>
+                            <article key={s.name} className={`tile pricing-card ${s.tile}`}>
                                 <h3>{s.name}</h3>
-                                <p className="price-tag" style={{ color: 'inherit', margin: '0.4rem 0' }}>{s.price}</p>
-                                <ul style={{ marginTop: '0.5rem' }}>
+                                <p className="price-tag pricing-card__price">{s.price}</p>
+                                <ul className="pricing-card__features">
                                     {s.features.map((f) => (
                                         <li key={f}>{f}</li>
                                     ))}
                                 </ul>
-                            </div>
+                            </article>
                         ))}
                     </div>
                 </div>
