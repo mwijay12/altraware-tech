@@ -100,6 +100,9 @@ export default function MotionCards() {
             });
         });
 
+        // Keep mobile cards and copy in their natural positions as they enter
+        // the viewport. The desktop animation is preserved.
+        mm.add("(min-width: 769px) and (prefers-reduced-motion: no-preference)", () => {
         const ctx = gsap.context(() => {
             // Entry Animations: Sticker Pop & Underline Draw
             const tl = gsap.timeline({
@@ -151,10 +154,10 @@ export default function MotionCards() {
             }
         }, sectionRef);
 
-        return () => {
-            mm.revert();
-            ctx.revert();
-        };
+        return () => ctx.revert();
+        });
+
+        return () => mm.revert();
     }, []);
 
     return (

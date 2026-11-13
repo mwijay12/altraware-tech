@@ -25,6 +25,8 @@
 /* Vimeo hero video player + headline       */
 @import './styles/cursor.css';
 /* Custom cursor bubble + scribble overlay  */
+@import './styles/horizontal-words.css';
+/* Horizontal words base before responsive overrides */
 @import './styles/responsive.css';
 /* All media queries (tablet + mobile)      */
 @import './styles/work.css';

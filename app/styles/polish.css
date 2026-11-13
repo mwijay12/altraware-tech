@@ -54,7 +54,7 @@
     .horizontal-words-section { height: auto; min-height: 0; padding: 90px 24px; display: flex; flex-direction: column; align-items: center; gap: 30px; }
     .horizontal-words__relative { position: relative; top: auto; transform: none; padding: 0; white-space: normal; text-align: center; }
     .horizontal-words__h2 { font-size: clamp(2.5rem, 9vw, 5rem); line-height: 1.05; white-space: normal; letter-spacing: -.05em; }
-    .horizontal-words__h2::before { content: attr(aria-label); }
+    .horizontal-words__static-title { display: inline; }
     .horizontal-words__h2 .letter { display: none !important; }
     .horizontal-words__sticker-svg > img, .horizontal-words__sticker-svg > svg { display: none; }
     .horizontal-words__bottom-text { position: relative; left: auto; bottom: auto; transform: none; width: auto; max-width: 600px; }
@@ -171,4 +171,75 @@
     .vimeo-hero__title { font-size: clamp(2rem, 9vw, 2.4rem); }
     .vimeo-hero__cta-btn { flex-basis: 100%; }
     .pg-hero__title { font-size: 2.2rem; }
+}
+
+/* A calm, stacked reading order on phones; desktop keeps its animated layout. */
+@media (max-width: 768px) {
+    .horizontal-words-section {
+        height: auto;
+        min-height: 0;
+        padding: 76px 24px 64px;
+        overflow: visible;
+        gap: 28px;
+    }
+    .horizontal-words__relative {
+        position: relative;
+        inset: auto;
+        width: 100%;
+        padding: 0;
+        transform: none;
+        white-space: normal;
+    }
+    .horizontal-words__h2 {
+        max-width: 550px;
+        margin: 0 auto;
+        font-size: clamp(2.2rem, 8.7vw, 3.5rem);
+        line-height: 1.12;
+        overflow-wrap: normal;
+        text-wrap: balance;
+    }
+    .horizontal-words__bottom-text {
+        position: relative;
+        inset: auto;
+        transform: none;
+        width: 100%;
+        max-width: 480px;
+        padding: 20px;
+    }
+    .horizontal-words__bottom-text-l { font-size: 1rem; line-height: 1.6; }
+    .motion-card-section { padding: 64px 20px 72px; }
+    .motion-card__heading { margin-bottom: 32px; }
+    .motion-card__title { line-height: 1.15; }
+    .motion-card__subtitle { display: block; margin-top: 12px; }
+    .motion-card__underline-svg { margin-top: 18px; }
+    .motion-card__cards-area { margin-top: 0; }
+    .motion-card__stat:nth-child(n) { transform: none; }
+
+    /* Balanced columns stop the brand and actions from colliding on small screens. */
+    .navbar { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; }
+    .nav-left, .nav-right { min-width: 0; }
+    .nav-mobile-work, .nav-mobile-whatsapp { min-width: 44px; white-space: nowrap; }
+    .nav-menu-btn { order: 2; flex: 0 0 44px; }
+    .nav-mobile-whatsapp { order: 1; }
+}
+@media (max-width: 360px) {
+    .nav-mobile-whatsapp { display: inline-flex; }
+    .navbar { gap: 4px; padding-inline: 10px; }
+    .logo-altraware { font-size: 1rem; }
+    .nav-right { gap: 2px; }
+}
+@media (max-width: 768px) {
+    /* Do not let decorative artwork widen the mobile layout viewport. */
+    .Double-marquee { overflow: clip; }
+    .home-header__smiley, .home-header__star, .home-header__title-line-svg { display: none; }
+    /* GSAP animates xPercent; a pre-existing pixel translation left the
+       mobile menu panels off-screen and the menu transparent. */
+    .km-panel { transform: none; }
+    .ai-fab { width: 48px; height: 48px; padding: 0; justify-content: center; }
+    .ai-fab-label { display: none; }
+    .ai-fab-dot { width: 12px; height: 12px; }
+}
+@media (max-width: 768px) {
+    .ai-fab-dot { display: none; }
+    .ai-fab::after { content: 'AI'; font-size: .85rem; letter-spacing: .02em; }
 }
